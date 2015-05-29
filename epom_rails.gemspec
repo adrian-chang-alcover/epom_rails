@@ -1,23 +1,23 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'epom_rails/version'
+$:.push File.expand_path("../lib", __FILE__)
 
-Gem::Specification.new do |spec|
-  spec.name          = "epom_rails"
-  spec.version       = EpomRails::VERSION
-  spec.authors       = ["Adrian Chang"]
-  spec.email         = ["adrian.chang.alcover@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
-  spec.license       = "MIT"
+# Maintain your gem's version:
+require "epom_rails/version"
 
-  spec.files         = `git ls-files -z`.split("\x0")
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
-  spec.require_paths = ["lib"]
+# Describe your gem and declare its dependencies:
+Gem::Specification.new do |s|
+  s.name        = "epom_rails"
+  s.version     = EpomRails::VERSION
+  s.authors     = ["Adrian Chang"]
+  s.email       = ["adrian.chang.alcover@gmail.com"]
+  s.homepage    = "TODO"
+  s.summary     = "TODO: Summary of EpomRails."
+  s.description = "TODO: Description of EpomRails."
+  s.license     = "MIT"
 
-  spec.add_development_dependency "bundler", "~> 1.7"
-  spec.add_development_dependency "rake", "~> 10.0"
+  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.test_files = Dir["test/**/*"]
+
+  s.add_dependency "rails", "~> 4.2.1"
+
+  s.add_development_dependency "sqlite3"
 end
