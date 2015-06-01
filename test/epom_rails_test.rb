@@ -7,6 +7,10 @@ class EpomRailsTest < ActiveSupport::TestCase
 
   test 'acts_as_advertiser' do
   	advertiser = Advertiser.new
+
   	assert_equal 'abc', advertiser.abc
+  	
+  	advertiser.save
+  	assert_equal 'saved in Epom', advertiser.name
   end
 end
