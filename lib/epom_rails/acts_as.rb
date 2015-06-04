@@ -3,12 +3,17 @@ class ActiveRecord::Base
   def self.acts_as(klass, fields = {})
     extend EpomRails
 
-    define_before_save(klass, fields)
+    self.epom_klass = klass
+    self.epom_fields = fields
+    
+    define_before_save
   end
 
   private
 
-  def self.define_before_save(klass, fields)
+  def self.define_before_save
+  	klass = self.epom_klass
+  	fields = self.epom_fields
   	before_save do 
   		klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
 
@@ -27,6 +32,7 @@ class ActiveRecord::Base
   			# create in Epom
   			body_params.delete('id')
   			epom_response = klass.send "create_#{klass_name.downcase}", {}, body_params
+  			# save id value returned from Epom in an Advertiser column
   			self.send "#{fields.key('id')}=", epom_response['id']
   		end
   		epom_response['success']
