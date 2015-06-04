@@ -53,6 +53,6 @@ class AdvertisersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def advertiser_params
-      params.require(:advertiser).permit(:name, :contact_name, :contact_email, :description)
+      params.require(:advertiser).permit(:name, :contact_name, :contact_email, :description, :epom_id)
     end
 end

@@ -1,6 +1,6 @@
 class ActiveRecord::Base 
 
-  def self.acts_as(klass, fields = {}, safe_locally = true)
+  def self.acts_as(klass, fields = {})
     include EpomRails
 
   	before_save do 

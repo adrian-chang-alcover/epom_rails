@@ -18,7 +18,7 @@ class AdvertisersControllerTest < ActionController::TestCase
 
   test "should create advertiser" do
     assert_difference('Advertiser.count') do
-      post :create, advertiser: { contact_email: @advertiser.contact_email, contact_name: @advertiser.contact_name, description: @advertiser.description, name: @advertiser.name }
+      post :create, advertiser: { contact_email: @advertiser.contact_email, contact_name: @advertiser.contact_name, description: @advertiser.description, epom_id: @advertiser.epom_id, name: @advertiser.name }
     end
 
     assert_redirected_to advertiser_path(assigns(:advertiser))
@@ -35,7 +35,7 @@ class AdvertisersControllerTest < ActionController::TestCase
   end
 
   test "should update advertiser" do
-    patch :update, id: @advertiser, advertiser: { contact_email: @advertiser.contact_email, contact_name: @advertiser.contact_name, description: @advertiser.description, name: @advertiser.name }
+    patch :update, id: @advertiser, advertiser: { contact_email: @advertiser.contact_email, contact_name: @advertiser.contact_name, description: @advertiser.description, epom_id: @advertiser.epom_id, name: @advertiser.name }
     assert_redirected_to advertiser_path(assigns(:advertiser))
   end
 
