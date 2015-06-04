@@ -5,11 +5,9 @@ one:
   contact_name: MyString
   contact_email: 
   description: MyText
-  epom_id: 1
 
 two:
   name: MyString
   contact_name: MyString
   contact_email: 
   description: MyText
-  epom_id: 1

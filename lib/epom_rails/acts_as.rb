@@ -25,7 +25,9 @@ class ActiveRecord::Base
   			epom_response = klass.send "update_#{klass_name.downcase}", {}, body_params
   		else
   			# create in Epom
+  			body_params.delete('id')
   			epom_response = klass.send "create_#{klass_name.downcase}", {}, body_params
+  			self.send "#{fields.key('id')}=", epom_response['id']
   		end
   		epom_response['success']
   	end
