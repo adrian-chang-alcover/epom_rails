@@ -6,11 +6,10 @@ class EpomRailsTest < ActiveSupport::TestCase
   end
 
   test 'acts_as_advertiser' do
-  	advertiser = Advertiser.new
+  	advertiser = advertisers(:one)
 
-  	assert_raises NoMethodError do advertiser.abc end
+  	assert_raises NoMethodError do Advertiser.fancy_method end
   	
   	advertiser.save
-  	assert_equal 'saved in Epom', advertiser.name
   end
 end
