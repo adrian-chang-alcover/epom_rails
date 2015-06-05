@@ -40,4 +40,8 @@ class ActsAsAdvertiserTest < ActiveSupport::TestCase
 	  	epom_id = advertiser.send(epom_field('id'))
 	  	assert advertiser.destroy
 	end
+
+	test 'epom method' do
+		Advertiser.get_advertisers_tree({}, {})
+	end
 end
