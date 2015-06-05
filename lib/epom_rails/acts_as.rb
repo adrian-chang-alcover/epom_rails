@@ -1,5 +1,11 @@
 class ActiveRecord::Base 
 
+  def self.acts_as_advertiser(fields = {})
+    acts_as(Epom::Advertiser, fields)
+  end
+
+  private
+
   def self.acts_as(klass, fields = {})
     extend EpomRails
 
@@ -8,8 +14,6 @@ class ActiveRecord::Base
     
     define_before_save
   end
-
-  private
 
   def self.define_before_save
   	klass = self.epom_klass
