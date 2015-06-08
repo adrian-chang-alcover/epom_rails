@@ -1,6 +1,6 @@
 # EpomRails
 
-TODO: Write a gem description
+The EpomRails gem is wrapper for Epom gem in Rails.
 
 ## Installation
 
@@ -20,7 +20,21 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+The following example shows how to use the acts_as_advertiser method specifing your local attributes with the equivalent attributes in Epom. For example, your epom_id attribute is equivalent with id attribute in Epom.
+ ```
+class Advertiser < ActiveRecord::Base
+	acts_as_advertiser epom_id: 'id', name: 'name', contact_name: 'contactName', contact_email: 'contactEmail', description: 'description'
+end
+```
+
+Now, every time you save, update or delete an advertiser it is synchronized in Epom. The first time you save an advertiser the epom_id attribute (according to as specified above) is setted with the advertiser id in Epom.
+
+Also, you can call the others Epom methods.
+```
+url_params = {:advertiserId => 'advertiser_id'}
+body_params = {}
+Advertiser.get_campaigns_for_advertiser(url_params, body_params)
+```
 
 ## Contributing
 
