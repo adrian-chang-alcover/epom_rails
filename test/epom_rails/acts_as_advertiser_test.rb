@@ -41,7 +41,25 @@ class ActsAsAdvertiserTest < ActiveSupport::TestCase
 	  	assert advertiser.destroy
 	end
 
-	test 'epom method' do
-		Advertiser.get_advertisers_tree({}, {})
+	test 'epom methods' do
+		response = Advertiser.get_advertisers_tree({}, {})
+
+		assert_instance_of Array, response
+		if response.count > 0
+			first = response[0]
+			assert_instance_of Fixnum, first['id']
+			assert_instance_of Array, first['category']
+			assert_instance_of String, first['name']
+			assert_instance_of Array, first['campaigns']
+
+			advertiser = first
+			response = Advertiser.get_campaigns_for_advertiser({:advertiserId => advertiser['id']}, {})
+			assert_instance_of Array, response
+			if response.count > 0
+				first = response[0]
+				assert_instance_of Fixnum, first['id']
+				assert_instance_of String, first['name']
+			end
+		end
 	end
 end

@@ -5,7 +5,7 @@ module EpomRails
 	attr_accessor :epom_klass, :epom_fields
 
 	def method_missing(method_name, *args)
-		epom_klass.send(method_name, args[0], args[1]) if epom_klass.respond_to?(method_name)
+		return epom_klass.send(method_name, args[0], args[1]) if epom_klass.respond_to?(method_name)
 		super
 	end
 end
