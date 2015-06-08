@@ -4,6 +4,10 @@ class ActiveRecord::Base
     acts_as(Epom::Advertiser, fields)
   end
 
+  def self.acts_as_campaign(fields = {})
+    acts_as(Epom::Campaign, fields)
+  end
+
   private
 
   def self.acts_as(klass, fields = {})
