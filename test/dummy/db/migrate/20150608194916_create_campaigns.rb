@@ -4,7 +4,7 @@ class CreateCampaigns < ActiveRecord::Migration
       t.string :name
       t.integer :advertiser_id
       t.text :description
-      t.integer :wight
+      t.integer :weight
 
       t.timestamps null: false
     end

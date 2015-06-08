@@ -53,6 +53,6 @@ class CampaignsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def campaign_params
-      params.require(:campaign).permit(:name, :advertiser_id, :description, :wight)
+      params.require(:campaign).permit(:name, :advertiser_id, :description, :weight)
     end
 end

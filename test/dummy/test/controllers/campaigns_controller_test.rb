@@ -18,7 +18,7 @@ class CampaignsControllerTest < ActionController::TestCase
 
   test "should create campaign" do
     assert_difference('Campaign.count') do
-      post :create, campaign: { advertiser_id: @campaign.advertiser_id, description: @campaign.description, name: @campaign.name, wight: @campaign.wight }
+      post :create, campaign: { advertiser_id: @campaign.advertiser_id, description: @campaign.description, name: @campaign.name, weight: @campaign.weight }
     end
 
     assert_redirected_to campaign_path(assigns(:campaign))
@@ -35,7 +35,7 @@ class CampaignsControllerTest < ActionController::TestCase
   end
 
   test "should update campaign" do
-    patch :update, id: @campaign, campaign: { advertiser_id: @campaign.advertiser_id, description: @campaign.description, name: @campaign.name, wight: @campaign.wight }
+    patch :update, id: @campaign, campaign: { advertiser_id: @campaign.advertiser_id, description: @campaign.description, name: @campaign.name, weight: @campaign.weight }
     assert_redirected_to campaign_path(assigns(:campaign))
   end
 
