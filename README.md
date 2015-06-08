@@ -27,7 +27,7 @@ class Advertiser < ActiveRecord::Base
 end
 ```
 
-Now, every time you save, update or delete an advertiser it is synchronized in Epom. The first time you save an advertiser the epom_id attribute (according to as specified above) is setted with the advertiser id in Epom.
+Now, every time you save, update or delete an advertiser it is synchronized in Epom. The first time you save an advertiser the epom_id attribute (according to specified above) is setted with the advertiser id in Epom.
 
 Also, you can call the others Epom methods.
 ```
