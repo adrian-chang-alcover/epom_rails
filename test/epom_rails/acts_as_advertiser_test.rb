@@ -9,10 +9,10 @@ class ActsAsAdvertiserTest < ActiveSupport::TestCase
 	  	assert_raises NoMethodError do Advertiser.fancy_method end
 	end
 
-	test 'save and update an advertiser' do
+	test 'save an advertiser' do
 		advertiser = advertisers(:one)	  	
 
-	  	advertiser.save
+	  	assert	advertiser.save
 	  	assert_instance_of Fixnum, advertiser.send(epom_field('id'))
 
 	  	# testing save_advertiser
@@ -23,12 +23,43 @@ class ActsAsAdvertiserTest < ActiveSupport::TestCase
 	  	assert_equal "Is Owner", epom_advertiser['shareType']
 
 	  	# testing update_advertiser
-	  	advertiser.name = 'otro string'
-	  	advertiser.save
+	  	assert advertiser.update name: 'otro string'
 	  	epom_response = Epom::Advertiser.get_advertiser_permissions_for_user({}, {})
 	  	assert_instance_of Array, epom_response
 	  	epom_advertiser = epom_response.find{|a| a['id'] == advertiser.send(epom_field('id'))}
 	  	assert_equal advertiser.send(epom_field('name')), epom_advertiser['name']
 	  	assert_equal "Is Owner", epom_advertiser['shareType']	  	
+	end
+
+	test 'delete an advertiser' do
+		advertiser = advertisers(:one)	  	
+
+	  	assert	advertiser.save
+	  	assert_instance_of Fixnum, advertiser.send(epom_field('id'))
+
+	  	epom_id = advertiser.send(epom_field('id'))
+	  	assert advertiser.destroy
+	end
+
+	test 'epom methods' do
+		response = Advertiser.get_advertisers_tree({}, {})
+
+		assert_instance_of Array, response
+		if response.count > 0
+			first = response[0]
+			assert_instance_of Fixnum, first['id']
+			assert_instance_of Array, first['category']
+			assert_instance_of String, first['name']
+			assert_instance_of Array, first['campaigns']
+
+			advertiser = first
+			response = Advertiser.get_campaigns_for_advertiser({:advertiserId => advertiser['id']}, {})
+			assert_instance_of Array, response
+			if response.count > 0
+				first = response[0]
+				assert_instance_of Fixnum, first['id']
+				assert_instance_of String, first['name']
+			end
+		end
 	end
 end

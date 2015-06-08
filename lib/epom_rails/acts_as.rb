@@ -1,5 +1,11 @@
 class ActiveRecord::Base 
 
+  def self.acts_as_advertiser(fields = {})
+    acts_as(Epom::Advertiser, fields)
+  end
+
+  private
+
   def self.acts_as(klass, fields = {})
     extend EpomRails
 
@@ -7,9 +13,8 @@ class ActiveRecord::Base
     self.epom_fields = fields
     
     define_before_save
+    define_before_destroy
   end
-
-  private
 
   def self.define_before_save
   	klass = self.epom_klass
@@ -23,7 +28,7 @@ class ActiveRecord::Base
 	      :timestamp => timestamp, 
 	      :username => ENV['username']
 	    }
-		fields.each { |local_field, remote_field| body_params[remote_field] = self.send local_field }
+		  fields.each { |local_field, remote_field| body_params[remote_field] = self.send local_field }
 
   		if self.send fields.key('id')
   			# update in Epom
@@ -37,6 +42,18 @@ class ActiveRecord::Base
   		end
   		epom_response['success']
   	end
+  end
+
+  def self.define_before_destroy
+    klass = self.epom_klass
+    fields = self.epom_fields
+    before_destroy do
+      if self.send fields.key('id')
+        klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
+        epom_response = klass.send "delete_#{klass_name.downcase}", {"#{klass_name.downcase}Id" => self.send(fields.key('id'))}, {}
+        epom_response['success']
+      end
+    end
   end
 
 end
