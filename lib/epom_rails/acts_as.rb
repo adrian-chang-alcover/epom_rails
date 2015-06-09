@@ -8,6 +8,10 @@ class ActiveRecord::Base
     acts_as(Epom::Campaign, fields)
   end
 
+  def self.acts_as_banner(fields = {})
+    acts_as(Epom::Banner, fields)
+  end
+
   private
 
   def self.acts_as(klass, fields = {})
@@ -59,7 +63,7 @@ class ActiveRecord::Base
       if self.send fields.key('id')
         klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
         epom_response = klass.send "delete_#{klass_name.downcase}", {"#{klass_name.downcase}Id" => self.send(fields.key('id'))}, {}
-        epom_response['success']
+        epom_response['success'] if epom_response
       end
     end
   end

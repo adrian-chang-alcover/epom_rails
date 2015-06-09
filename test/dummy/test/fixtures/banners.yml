@@ -1,27 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  epom_id: 1
-  placement_type: MyString
-  campaign_id: 1
+  placement_type: SITE_PLACEMENT
+  campaign_id: 1247
   weight: 1
-  image_banner_link: MyString
-  url: MyString
-  name: MyString
-  banner_type: MyString
-  ad_unit_id: 1
-  ad_unit_width: 1
-  ad_unit_height: 1
-
-two:
-  epom_id: 1
-  placement_type: MyString
-  campaign_id: 1
-  weight: 1
-  image_banner_link: MyString
-  url: MyString
-  name: MyString
-  banner_type: MyString
-  ad_unit_id: 1
-  ad_unit_width: 1
-  ad_unit_height: 1
+  image_banner_link: http://www.kewelta.com/images/imago_kewelta.png
+  url: http://www.kewelta.com
+  name: kewelta
+  banner_type: EXTERNAL_FILE
+  ad_unit_id: 10
+  ad_unit_width: 164
+  ad_unit_height: 182
