@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Banners</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Epom</th>
+      <th>Placement type</th>
+      <th>Campaign</th>
+      <th>Weight</th>
+      <th>Image banner link</th>
+      <th>Url</th>
+      <th>Name</th>
+      <th>Banner type</th>
+      <th>Ad unit</th>
+      <th>Ad unit width</th>
+      <th>Ad unit height</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @banners.each do |banner| %>
+      <tr>
+        <td><%= banner.epom_id %></td>
+        <td><%= banner.placement_type %></td>
+        <td><%= banner.campaign_id %></td>
+        <td><%= banner.weight %></td>
+        <td><%= banner.image_banner_link %></td>
+        <td><%= banner.url %></td>
+        <td><%= banner.name %></td>
+        <td><%= banner.banner_type %></td>
+        <td><%= banner.ad_unit_id %></td>
+        <td><%= banner.ad_unit_width %></td>
+        <td><%= banner.ad_unit_height %></td>
+        <td><%= link_to 'Show', banner %></td>
+        <td><%= link_to 'Edit', edit_banner_path(banner) %></td>
+        <td><%= link_to 'Destroy', banner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Banner', new_banner_path %>

@@ -1,0 +1,61 @@
+<%= form_for(@banner) do |f| %>
+  <% if @banner.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@banner.errors.count, "error") %> prohibited this banner from being saved:</h2>
+
+      <ul>
+      <% @banner.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :epom_id %><br>
+    <%= f.number_field :epom_id %>
+  </div>
+  <div class="field">
+    <%= f.label :placement_type %><br>
+    <%= f.text_field :placement_type %>
+  </div>
+  <div class="field">
+    <%= f.label :campaign_id %><br>
+    <%= f.number_field :campaign_id %>
+  </div>
+  <div class="field">
+    <%= f.label :weight %><br>
+    <%= f.number_field :weight %>
+  </div>
+  <div class="field">
+    <%= f.label :image_banner_link %><br>
+    <%= f.text_field :image_banner_link %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br>
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :banner_type %><br>
+    <%= f.text_field :banner_type %>
+  </div>
+  <div class="field">
+    <%= f.label :ad_unit_id %><br>
+    <%= f.number_field :ad_unit_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ad_unit_width %><br>
+    <%= f.number_field :ad_unit_width %>
+  </div>
+  <div class="field">
+    <%= f.label :ad_unit_height %><br>
+    <%= f.number_field :ad_unit_height %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
