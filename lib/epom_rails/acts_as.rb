@@ -26,16 +26,25 @@ class ActiveRecord::Base
   	before_save do 
   		klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
 
-  		body_params = {}
-		  fields.each { |local_field, remote_field| body_params[remote_field] = self.send local_field }
+      method = if self.send fields.key('id') then "update_#{klass_name.downcase}" else "create_#{klass_name.downcase}" end
+      
+      url_params = {}
+      if klass.extended_methods[method.to_sym][:url_parameters]
+        klass.extended_methods[method.to_sym][:url_parameters].each do |parameter|
+          url_params[parameter] = self.send(fields.key(parameter.to_s)) if fields.key(parameter.to_s)
+        end
+      end
 
-  		if self.send fields.key('id')
-  			# update in Epom
-  			epom_response = klass.send "update_#{klass_name.downcase}", {}, body_params
-  		else
-  			# create in Epom
-  			body_params.delete('id')
-  			epom_response = klass.send "create_#{klass_name.downcase}", {}, body_params
+      body_params = {}
+      if klass.extended_methods[method.to_sym][:body_parameters]
+        klass.extended_methods[method.to_sym][:body_parameters].each do |parameter|
+          body_params[parameter] = self.send(fields.key(parameter.to_s)) if fields.key(parameter.to_s)
+        end
+      end
+      
+      epom_response = klass.send method, url_params, body_params
+  		
+      unless self.send fields.key('id')
   			# save id value returned from Epom in an Advertiser column
   			self.send "#{fields.key('id')}=", epom_response['id']
   		end
