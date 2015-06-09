@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150608195747) do
+ActiveRecord::Schema.define(version: 20150609175407) do
 
   create_table "advertisers", force: :cascade do |t|
     t.string   "name"
@@ -21,6 +21,22 @@ ActiveRecord::Schema.define(version: 20150608195747) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.integer  "epom_id"
+  end
+
+  create_table "banners", force: :cascade do |t|
+    t.integer  "epom_id"
+    t.string   "placement_type"
+    t.integer  "campaign_id"
+    t.integer  "weight"
+    t.string   "image_banner_link"
+    t.string   "url"
+    t.string   "name"
+    t.string   "banner_type"
+    t.integer  "ad_unit_id"
+    t.integer  "ad_unit_width"
+    t.integer  "ad_unit_height"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "campaigns", force: :cascade do |t|
