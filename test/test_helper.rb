@@ -23,5 +23,3 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.fixture_path = File.expand_path("../dummy/test/fixtures", __FILE__)
   ActiveSupport::TestCase.fixtures :all
 end
-
-Epom::EpomElement.login(ENV['username'], ENV['password'])

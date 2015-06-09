@@ -26,12 +26,7 @@ class ActiveRecord::Base
   	before_save do 
   		klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
 
-  		timestamp = Time.now.to_i * 1000
-  		body_params = {
-	      :hash => Epom.create_hash(Epom.create_hash(ENV['password']), timestamp),
-	      :timestamp => timestamp, 
-	      :username => ENV['username']
-	    }
+  		body_params = {}
 		  fields.each { |local_field, remote_field| body_params[remote_field] = self.send local_field }
 
   		if self.send fields.key('id')
