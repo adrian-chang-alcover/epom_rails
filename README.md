@@ -18,6 +18,10 @@ Or install it yourself as:
 
     $ gem install epom_rails
 
+There's a handy generator that generates the default configuration file into config/initializers directory.
+Run the following generator command, then edit the generated file.
+`$ rails g epom:config`
+
 ## Usage
 
 The following example shows how to use the acts_as_advertiser method specifing your local attributes with the equivalent attributes in Epom. For example, your epom_id attribute is equivalent with id attribute in Epom.
