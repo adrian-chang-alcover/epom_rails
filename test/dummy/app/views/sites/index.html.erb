@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Sites</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Epom</th>
+      <th>Name</th>
+      <th>Url</th>
+      <th>Description</th>
+      <th>Email</th>
+      <th>Impressions by month</th>
+      <th>Visitors by month</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sites.each do |site| %>
+      <tr>
+        <td><%= site.epom_id %></td>
+        <td><%= site.name %></td>
+        <td><%= site.url %></td>
+        <td><%= site.description %></td>
+        <td><%= site.email %></td>
+        <td><%= site.impressions_by_month %></td>
+        <td><%= site.visitors_by_month %></td>
+        <td><%= link_to 'Show', site %></td>
+        <td><%= link_to 'Edit', edit_site_path(site) %></td>
+        <td><%= link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Site', new_site_path %>

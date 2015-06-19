@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Epom:</strong>
+  <%= @site.epom_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @site.name %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @site.url %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @site.description %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @site.email %>
+</p>
+
+<p>
+  <strong>Impressions by month:</strong>
+  <%= @site.impressions_by_month %>
+</p>
+
+<p>
+  <strong>Visitors by month:</strong>
+  <%= @site.visitors_by_month %>
+</p>
+
+<%= link_to 'Edit', edit_site_path(@site) %> |
+<%= link_to 'Back', sites_path %>
