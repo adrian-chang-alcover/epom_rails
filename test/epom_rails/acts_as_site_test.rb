@@ -28,4 +28,24 @@ class ActsAsSiteTest < ActiveSupport::TestCase
 	  	epom_site = epom_response.find{|a| a['id'] == site.send(epom_field('id'))}
 	  	assert_equal site.send(epom_field('name')), epom_site['name']
 	end
+
+	test 'delete an site' do
+		site = sites(:one)	  	
+
+	  	assert	site.save
+	  	assert_instance_of Fixnum, site.send(epom_field('id'))
+
+	  	epom_id = site.send(epom_field('id'))
+	  	assert site.destroy
+	end
+
+	test 'epom methods' do
+		site = sites(:one)	  	
+
+	  	assert	site.save
+	  	assert_instance_of Fixnum, site.send(epom_field('id'))
+
+		response = Site.get_sites_zones({:siteId => site.send(epom_field('id'))}, {})
+		assert_instance_of Array, response	
+	end
 end
