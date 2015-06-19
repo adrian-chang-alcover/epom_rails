@@ -53,6 +53,6 @@ class SitesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def site_params
-      params.require(:site).permit(:epom_id, :name, :url, :description, :email, :impressions_by_month, :visitors_by_month)
+      params.require(:site).permit(:epom_id, :name, :url, :description, :email, :category_id)
     end
 end

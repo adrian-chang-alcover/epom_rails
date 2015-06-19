@@ -12,6 +12,10 @@ class ActiveRecord::Base
     acts_as(Epom::Banner, fields)
   end
 
+  def self.acts_as_site(fields = {})
+    acts_as(Epom::Site, fields)
+  end
+
   private
 
   def self.acts_as(klass, fields = {})

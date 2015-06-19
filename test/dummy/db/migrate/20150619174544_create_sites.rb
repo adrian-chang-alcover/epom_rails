@@ -6,8 +6,7 @@ class CreateSites < ActiveRecord::Migration
       t.string :url
       t.text :description
       t.string :email
-      t.integer :impressions_by_month
-      t.integer :visitors_by_month
+      t.integer :category_id
 
       t.timestamps null: false
     end
