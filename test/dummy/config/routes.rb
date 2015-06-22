@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :zones
   resources :sites
   resources :sites
   resources :banners
