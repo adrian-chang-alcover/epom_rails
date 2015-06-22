@@ -16,6 +16,10 @@ class ActiveRecord::Base
     acts_as(Epom::Site, fields)
   end
 
+  def self.acts_as_zone(fields = {})
+    acts_as(Epom::Zone, fields)
+  end
+
   private
 
   def self.acts_as(klass, fields = {})
