@@ -53,6 +53,6 @@ class PlacementsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def placement_params
-      params.require(:placement).permit(:epom_id, :zone_id, :type, :name, :ad_unit_id, :size_height, :size_width)
+      params.require(:placement).permit(:epom_id, :zone_id, :placement_type, :name, :ad_unit_id, :size_height, :size_width)
     end
 end

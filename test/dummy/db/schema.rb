@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150622180206) do
+ActiveRecord::Schema.define(version: 20150622181754) do
 
   create_table "advertisers", force: :cascade do |t|
     t.string   "name"
@@ -52,13 +52,13 @@ ActiveRecord::Schema.define(version: 20150622180206) do
   create_table "placements", force: :cascade do |t|
     t.integer  "epom_id"
     t.integer  "zone_id"
-    t.string   "type"
+    t.string   "placement_type"
     t.string   "name"
     t.integer  "ad_unit_id"
     t.integer  "size_height"
     t.integer  "size_width"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "sites", force: :cascade do |t|

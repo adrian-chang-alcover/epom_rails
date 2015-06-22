@@ -3,7 +3,7 @@ class CreatePlacements < ActiveRecord::Migration
     create_table :placements do |t|
       t.integer :epom_id
       t.integer :zone_id
-      t.string :type
+      t.string :placement_type
       t.string :name
       t.integer :ad_unit_id
       t.integer :size_height
