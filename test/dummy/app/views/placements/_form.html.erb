@@ -1,0 +1,45 @@
+<%= form_for(@placement) do |f| %>
+  <% if @placement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@placement.errors.count, "error") %> prohibited this placement from being saved:</h2>
+
+      <ul>
+      <% @placement.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :epom_id %><br>
+    <%= f.number_field :epom_id %>
+  </div>
+  <div class="field">
+    <%= f.label :zone_id %><br>
+    <%= f.number_field :zone_id %>
+  </div>
+  <div class="field">
+    <%= f.label :placement_type %><br>
+    <%= f.text_field :placement_type %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :ad_unit_id %><br>
+    <%= f.number_field :ad_unit_id %>
+  </div>
+  <div class="field">
+    <%= f.label :size_height %><br>
+    <%= f.number_field :size_height %>
+  </div>
+  <div class="field">
+    <%= f.label :size_width %><br>
+    <%= f.number_field :size_width %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
