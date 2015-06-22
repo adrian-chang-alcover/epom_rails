@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :placements
+  resources :placements
   resources :zones
   resources :sites
   resources :sites

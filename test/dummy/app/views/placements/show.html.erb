@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Epom:</strong>
+  <%= @placement.epom_id %>
+</p>
+
+<p>
+  <strong>Zone:</strong>
+  <%= @placement.zone_id %>
+</p>
+
+<p>
+  <strong>Placement type:</strong>
+  <%= @placement.placement_type %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @placement.name %>
+</p>
+
+<p>
+  <strong>Ad unit:</strong>
+  <%= @placement.ad_unit_id %>
+</p>
+
+<p>
+  <strong>Size height:</strong>
+  <%= @placement.size_height %>
+</p>
+
+<p>
+  <strong>Size width:</strong>
+  <%= @placement.size_width %>
+</p>
+
+<%= link_to 'Edit', edit_placement_path(@placement) %> |
+<%= link_to 'Back', placements_path %>
