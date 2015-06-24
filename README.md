@@ -1,5 +1,7 @@
 # EpomRails
 
+[![Build Status](https://semaphoreci.com/api/v1/projects/6ff04e2c-4762-4f37-a249-06ad1c9ac060/447527/badge.svg)](https://semaphoreci.com/adrian-chang/epom_rails)      
+
 The EpomRails gem is wrapper for Epom gem in Rails.
 
 ## Installation
