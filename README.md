@@ -23,7 +23,7 @@ Or install it yourself as:
 There's a handy generator that generates the default configuration file into config/initializers directory.
 Run the following generator command, then edit the generated file.
 
-`$ rails generate epom:config`
+	$ rails generate epom:config
 
 ## Usage
 
