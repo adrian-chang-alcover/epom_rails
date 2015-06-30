@@ -10,3 +10,5 @@ vendor/cache/
 
 # Ignore application configuration
 /config/application.yml
+
+test/dummy/config/initializers/epom.rb

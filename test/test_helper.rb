@@ -23,3 +23,14 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
   ActiveSupport::TestCase.fixture_path = File.expand_path("../dummy/test/fixtures", __FILE__)
   ActiveSupport::TestCase.fixtures :all
 end
+
+Epom.configure do |config|
+	config.epom_server = 'https://n29.epom.com/'
+	config.username = ENV['username']
+	config.password = ENV['password']
+
+	config.proxy_address = ENV['proxy_address']
+	config.proxy_port = ENV['proxy_port']
+	config.proxy_user = ENV['proxy_user']
+	config.proxy_password = ENV['proxy_password']
+end
