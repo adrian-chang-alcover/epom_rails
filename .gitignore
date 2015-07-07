@@ -12,3 +12,4 @@ vendor/cache/
 /config/application.yml
 
 test/dummy/config/initializers/epom.rb
+*.gem
