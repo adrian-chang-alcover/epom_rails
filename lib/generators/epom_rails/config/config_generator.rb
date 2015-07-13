@@ -8,5 +8,9 @@ module EpomRails
 	        	inject_into_file '.gitignore', after: "/.bundle" do "\nconfig/initializers/epom_rails.rb" end
 	        end
 	   	end
+
+	   	def epom_generator
+	   		generate 'epom:config'
+	   	end
 	end
 end
