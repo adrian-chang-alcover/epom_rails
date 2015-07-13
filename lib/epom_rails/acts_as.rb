@@ -37,7 +37,7 @@ class ActiveRecord::Base
   end
 
   def self.define_before_save
-    unless EpomRails.offline
+    unless EpomRails.config.offline
     	klass = self.epom_klass
     	fields = self.epom_fields
     	before_save do 
@@ -71,7 +71,7 @@ class ActiveRecord::Base
   end
 
   def self.define_before_destroy
-    unless EpomRails.offline
+    unless EpomRails.config.offline
       klass = self.epom_klass
       fields = self.epom_fields
       before_destroy do
