@@ -10,7 +10,8 @@ class ActsAsPlacementTest < ActiveSupport::TestCase
 	end
 
 	test 'save an placement' do
-		placement = placements(:one)	  	
+		unless EpomRails.config.offline
+			placement = placements(:one)	  	
 
 	  	assert	placement.save
 	  	assert_instance_of Fixnum, placement.send(epom_field('id'))
@@ -27,25 +28,30 @@ class ActsAsPlacementTest < ActiveSupport::TestCase
 	  	assert_instance_of Array, epom_response
 	  	epom_placement = epom_response.find{|a| a['id'] == placement.send(epom_field('id'))}
 	  	assert_equal placement.send(epom_field('name')), epom_placement['name']
+	  end
 	end
 
 	test 'delete an placement' do
-		placement = placements(:one)	  	
+		unless EpomRails.config.offline
+			placement = placements(:one)	  	
 
 	  	assert	placement.save
 	  	assert_instance_of Fixnum, placement.send(epom_field('id'))
 
 	  	epom_id = placement.send(epom_field('id'))
 	  	assert placement.destroy
+	  end
 	end
 
 	test 'epom methods' do
-		placement = placements(:one)	  	
+		unless EpomRails.config.offline
+			placement = placements(:one)	  	
 
 	  	assert	placement.save
 	  	assert_instance_of Fixnum, placement.send(epom_field('id'))
 
-		epom_response = Epom::Placement.get_placement_summary({}, {:placementIds => placement.send(epom_field('id'))})
+			epom_response = Epom::Placement.get_placement_summary({}, {:placementIds => placement.send(epom_field('id'))})
 	  	assert_instance_of Array, epom_response
+	  end
 	end
 end
