@@ -1,6 +1,8 @@
 require 'epom'
 require 'epom_rails/acts_as'
 
+require 'epom_rails/config'
+
 module EpomRails
 	attr_accessor :epom_klass, :epom_fields
 
