@@ -36,5 +36,5 @@ Epom.configure do |config|
 end
 
 EpomRails.configure do |config|
-	config.offline = true
+	config.offline = false
 end
