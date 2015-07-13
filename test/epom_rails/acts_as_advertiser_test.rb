@@ -10,7 +10,8 @@ class ActsAsAdvertiserTest < ActiveSupport::TestCase
 	end
 
 	test 'save an advertiser' do
-		advertiser = advertisers(:one)	  	
+		unless EpomRails.config.offline
+			advertiser = advertisers(:one)	  	
 
 	  	assert	advertiser.save
 	  	assert_instance_of Fixnum, advertiser.send(epom_field('id'))
@@ -29,36 +30,41 @@ class ActsAsAdvertiserTest < ActiveSupport::TestCase
 	  	epom_advertiser = epom_response.find{|a| a['id'] == advertiser.send(epom_field('id'))}
 	  	assert_equal advertiser.send(epom_field('name')), epom_advertiser['name']
 	  	assert_equal "Is Owner", epom_advertiser['shareType']	  	
+	  end
 	end
 
 	test 'delete an advertiser' do
-		advertiser = advertisers(:one)	  	
+		unless EpomRails.config.offline
+			advertiser = advertisers(:one)	  	
 
 	  	assert	advertiser.save
 	  	assert_instance_of Fixnum, advertiser.send(epom_field('id'))
 
 	  	epom_id = advertiser.send(epom_field('id'))
 	  	assert advertiser.destroy
+	  end
 	end
 
 	test 'epom methods' do
-		response = Advertiser.get_advertisers_tree({}, {})
+		unless EpomRails.config.offline
+			response = Advertiser.get_advertisers_tree({}, {})
 
-		assert_instance_of Array, response
-		if response.count > 0
-			first = response[0]
-			assert_instance_of Fixnum, first['id']
-			assert_instance_of Array, first['category']
-			assert_instance_of String, first['name']
-			assert_instance_of Array, first['campaigns']
-
-			advertiser = first
-			response = Advertiser.get_campaigns_for_advertiser({:advertiserId => advertiser['id']}, {})
 			assert_instance_of Array, response
 			if response.count > 0
 				first = response[0]
 				assert_instance_of Fixnum, first['id']
+				assert_instance_of Array, first['category']
 				assert_instance_of String, first['name']
+				assert_instance_of Array, first['campaigns']
+
+				advertiser = first
+				response = Advertiser.get_campaigns_for_advertiser({:advertiserId => advertiser['id']}, {})
+				assert_instance_of Array, response
+				if response.count > 0
+					first = response[0]
+					assert_instance_of Fixnum, first['id']
+					assert_instance_of String, first['name']
+				end
 			end
 		end
 	end
