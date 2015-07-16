@@ -37,45 +37,49 @@ class ActiveRecord::Base
   end
 
   def self.define_before_save
-  	klass = self.epom_klass
-  	fields = self.epom_fields
-  	before_save do 
-  		klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
+    unless EpomRails.config.offline
+    	klass = self.epom_klass
+    	fields = self.epom_fields
+    	before_save do 
+    		klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
 
-      method = if self.send fields.key('id') then "update_#{klass_name.downcase}" else "create_#{klass_name.downcase}" end
-      
-      url_params = {}
-      if klass.extended_methods[method.to_sym][:url_parameters]
-        klass.extended_methods[method.to_sym][:url_parameters].each do |parameter|
-          url_params[parameter] = self.send(fields.key(parameter.to_s)) if fields.key(parameter.to_s)
+        method = if self.send fields.key('id') then "update_#{klass_name.downcase}" else "create_#{klass_name.downcase}" end
+        
+        url_params = {}
+        if klass.extended_methods[method.to_sym][:url_parameters]
+          klass.extended_methods[method.to_sym][:url_parameters].each do |parameter|
+            url_params[parameter] = self.send(fields.key(parameter.to_s)) if fields.key(parameter.to_s)
+          end
         end
-      end
 
-      body_params = {}
-      if klass.extended_methods[method.to_sym][:body_parameters]
-        klass.extended_methods[method.to_sym][:body_parameters].each do |parameter|
-          body_params[parameter] = self.send(fields.key(parameter.to_s)) if fields.key(parameter.to_s)
+        body_params = {}
+        if klass.extended_methods[method.to_sym][:body_parameters]
+          klass.extended_methods[method.to_sym][:body_parameters].each do |parameter|
+            body_params[parameter] = self.send(fields.key(parameter.to_s)) if fields.key(parameter.to_s)
+          end
         end
-      end
-      
-      epom_response = klass.send method, url_params, body_params
-  		
-      unless self.send fields.key('id')
-  			# save id value returned from Epom in an Advertiser column
-  			self.send "#{fields.key('id')}=", epom_response['id']
-  		end
-  		epom_response['success']
-  	end
+        
+        epom_response = klass.send method, url_params, body_params
+    		
+        unless self.send fields.key('id')
+    			# save id value returned from Epom in an Advertiser column
+    			self.send "#{fields.key('id')}=", epom_response['id']
+    		end
+    		epom_response['success']
+    	end
+    end  
   end
 
   def self.define_before_destroy
-    klass = self.epom_klass
-    fields = self.epom_fields
-    before_destroy do
-      if self.send fields.key('id')
-        klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
-        epom_response = klass.send "delete_#{klass_name.downcase}", {"#{klass_name.downcase}Id" => self.send(fields.key('id'))}, {}
-        epom_response['success'] if epom_response
+    unless EpomRails.config.offline
+      klass = self.epom_klass
+      fields = self.epom_fields
+      before_destroy do
+        if self.send fields.key('id')
+          klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
+          epom_response = klass.send "delete_#{klass_name.downcase}", {"#{klass_name.downcase}Id" => self.send(fields.key('id'))}, {}
+          epom_response['success'] if epom_response
+        end
       end
     end
   end

@@ -10,33 +10,39 @@ class ActsAsBannerTest < ActiveSupport::TestCase
 	end
 
 	test 'save an banner' do
-		banner = banners(:one)	  	
+		unless EpomRails.config.offline
+			banner = banners(:one)	  	
 
 	  	assert	banner.save
 	  	assert_instance_of Fixnum, banner.send(epom_field('id'))
+	  end
 	end
 
 	test 'delete an banner' do
-		banner = banners(:one)	  	
+		unless EpomRails.config.offline
+			banner = banners(:one)	  	
 
 	  	assert	banner.save
 	  	assert_instance_of Fixnum, banner.send(epom_field('id'))
 
 	  	epom_id = banner.send(epom_field('id'))
 	  	assert banner.destroy
+	  end
 	end
 
 	test 'epom methods' do
-		banner = banners(:one)	  	
+		unless EpomRails.config.offline
+			banner = banners(:one)	  	
 
 	  	assert	banner.save
 	  	assert_instance_of Fixnum, banner.send(epom_field('id'))
 
-		response = Banner.get_banner({:bannerId => banner.send(epom_field('id'))}, {})
-		assert_equal banner.campaign_id, response['campaignId']
-		assert_equal banner.weight, response['weight']
-		assert_equal banner.url, response['url']
-		assert_equal banner.name, response['name']
-		assert_equal banner.image_banner_link, response['imageBannerLink']		
+			response = Banner.get_banner({:bannerId => banner.send(epom_field('id'))}, {})
+			assert_equal banner.campaign_id, response['campaignId']
+			assert_equal banner.weight, response['weight']
+			assert_equal banner.url, response['url']
+			assert_equal banner.name, response['name']
+			assert_equal banner.image_banner_link, response['imageBannerLink']		
+		end
 	end
 end

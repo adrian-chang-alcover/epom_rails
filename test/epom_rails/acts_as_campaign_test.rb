@@ -10,31 +10,36 @@ class ActsAsCampaignTest < ActiveSupport::TestCase
 	end
 
 	test 'save an campaign' do
-		campaign = campaigns(:one)	  	
+		unless EpomRails.config.offline
+			campaign = campaigns(:one)	  	
 
 	  	assert	campaign.save
 	  	assert_instance_of Fixnum, campaign.send(epom_field('id'))
+	  end
 	end
 
 	test 'delete an campaign' do
-		campaign = campaigns(:one)	  	
+		unless EpomRails.config.offline
+			campaign = campaigns(:one)	  	
 
 	  	assert	campaign.save
 	  	assert_instance_of Fixnum, campaign.send(epom_field('id'))
 
 	  	epom_id = campaign.send(epom_field('id'))
 	  	assert campaign.destroy
+	  end
 	end
 
 	test 'epom methods' do
-		campaign = campaigns(:one)	  	
+		unless EpomRails.config.offline
+			campaign = campaigns(:one)	  	
 
-	  	assert	campaign.save
-	  	assert_instance_of Fixnum, campaign.send(epom_field('id'))
+		  	assert	campaign.save
+		  	assert_instance_of Fixnum, campaign.send(epom_field('id'))
 
-		response = Campaign.get_campaign({:campaignId => campaign.send(epom_field('id'))}, {})
-		assert_equal campaign.send(epom_field('id')), response['id']
-		assert_equal campaign.send(epom_field('name')), response['name']
-		
+			response = Campaign.get_campaign({:campaignId => campaign.send(epom_field('id'))}, {})
+			assert_equal campaign.send(epom_field('id')), response['id']
+			assert_equal campaign.send(epom_field('name')), response['name']
+		end		
 	end
 end
