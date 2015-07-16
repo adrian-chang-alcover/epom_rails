@@ -4,4 +4,8 @@ class ActiveRecord::Base
     acts_as(Epom::Advertiser, fields)
   end
 
+  def campaignss
+  	byebug
+  end
+
 end

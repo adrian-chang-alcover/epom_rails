@@ -128,7 +128,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug (~> 4.0, >= 4.0.3)
+  byebug
   codeclimate-test-reporter
   epom_rails!
   sqlite3
