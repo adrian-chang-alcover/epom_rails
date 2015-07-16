@@ -1,5 +1,11 @@
 require 'epom'
 require 'epom_rails/acts_as'
+require 'epom_rails/acts_as_advertiser'
+require 'epom_rails/acts_as_campaign'
+require 'epom_rails/acts_as_banner'
+require 'epom_rails/acts_as_site'
+require 'epom_rails/acts_as_zone'
+require 'epom_rails/acts_as_placement'
 
 require 'epom_rails/config'
 
