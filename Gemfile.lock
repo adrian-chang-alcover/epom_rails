@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    epom_rails (0.4.7)
+    epom_rails (0.4.8)
       epom
       rails (~> 4.2)
 
@@ -51,7 +51,7 @@ GEM
       simplecov (>= 0.7.1, < 1.0.0)
     columnize (0.9.0)
     docile (1.1.5)
-    epom (0.9.7)
+    epom (0.9.8)
       httmultiparty (~> 0.3, >= 0.3.6)
       rails (~> 4.2, >= 4.2.0)
       rake (~> 10.4, >= 10.4.2)
