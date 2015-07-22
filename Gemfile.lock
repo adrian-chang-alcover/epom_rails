@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    epom_rails (0.4.8)
+    epom_rails (0.4.9)
       epom
       rails (~> 4.2)
 
