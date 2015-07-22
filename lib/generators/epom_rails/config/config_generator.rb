@@ -5,7 +5,10 @@ module EpomRails
 	  	def copy_epom_rails_file
 	        template 'epom_rails.rb', 'config/initializers/epom_rails.rb'
 	        if File.exist?('.gitignore')
-	        	inject_into_file '.gitignore', after: "/.bundle" do "\nconfig/initializers/epom_rails.rb" end
+	        	File.open('.gitignore','a'){|f| f.write("\nconfig/initializers/epom_rails.rb")}
+	        end
+	        if File.exist?('../../.gitignore')
+	        	File.open('../../.gitignore','a'){|f| f.write("\ntest/dummy/config/initializers/epom_rails.rb")}
 	        end
 	   	end
 
