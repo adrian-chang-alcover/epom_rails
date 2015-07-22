@@ -10,9 +10,15 @@ class ActiveRecord::Base
   private
   def self.has_many_wrapper(options)
   	association = has_many options[:name].to_sym, options.except(:name)
+  	
+    self.class_eval do 
+  		alias_method "#{options[:name]}_original", options[:name] 
 
-  	self.class_eval do 
-  		alias_method "#{options[:name]_original}", options[:name] 
+      define_method options[:name] do
+        'hello'
+      end 
+
+      byebug
   	end
   end
 end
