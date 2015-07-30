@@ -1,7 +1,9 @@
 class ActiveRecord::Base 
 
   def self.acts_as_advertiser(parameters)
+    EpomRails.advertiser_class = self
   	fields = parameters.select{|key, value| self.column_names.include? key}
+
     acts_as(Epom::Advertiser, fields)
 
     parameters[:has_many].each {|option| has_many_wrapper(option)} if parameters[:has_many]
