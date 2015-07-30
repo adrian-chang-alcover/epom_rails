@@ -22,15 +22,21 @@ class ActiveRecord::Base
         method = if self.send fields.key('id') then "update_#{klass_name.downcase}" else "create_#{klass_name.downcase}" end
         
         url_params = {}
-        if klass.extended_methods[method.to_sym][:url_parameters]
-          klass.extended_methods[method.to_sym][:url_parameters].each do |parameter|
+        url_parameters = klass.extended_methods[method.to_sym][:url_parameters]
+        if url_parameters
+          url_parameters.each do |parameter|
             url_params[parameter] = self.send(fields.key(parameter.to_s)) if fields.key(parameter.to_s)
           end
         end
+        # if campaignId, bannerId, etc, as url parameters in update action
+        if url_parameters and url_parameters.include? "#{klass_name.downcase}Id".to_sym
+          url_params["#{klass_name.downcase}Id".to_sym] = self.send "#{fields.key('id')}"
+        end
 
         body_params = {}
-        if klass.extended_methods[method.to_sym][:body_parameters]
-          klass.extended_methods[method.to_sym][:body_parameters].each do |parameter|
+        body_parameters = klass.extended_methods[method.to_sym][:body_parameters]
+        if body_parameters
+          body_parameters.each do |parameter|
             body_params[parameter] = self.send(fields.key(parameter.to_s)) if fields.key(parameter.to_s)
           end
         end
