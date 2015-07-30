@@ -17,8 +17,6 @@ class ActiveRecord::Base
       define_method options[:name] do
         'hello'
       end 
-
-      byebug
   	end
   end
 end
