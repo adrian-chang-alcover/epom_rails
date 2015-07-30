@@ -1,35 +1,11 @@
 class ActiveRecord::Base 
 
-  def self.acts_as_advertiser(fields = {})
-    acts_as(Epom::Advertiser, fields)
-  end
-
-  def self.acts_as_campaign(fields = {})
-    acts_as(Epom::Campaign, fields)
-  end
-
-  def self.acts_as_banner(fields = {})
-    acts_as(Epom::Banner, fields)
-  end
-
-  def self.acts_as_site(fields = {})
-    acts_as(Epom::Site, fields)
-  end
-
-  def self.acts_as_zone(fields = {})
-    acts_as(Epom::Zone, fields)
-  end
-
-  def self.acts_as_placement(fields = {})
-    acts_as(Epom::Placement, fields)
-  end
-
   private
 
   def self.acts_as(klass, fields = {})
     extend EpomRails
 
-    self.epom_klass = klass
+    self.epom_class = klass
     self.epom_fields = fields
     
     define_before_save
@@ -38,7 +14,7 @@ class ActiveRecord::Base
 
   def self.define_before_save
     unless EpomRails.config.offline
-    	klass = self.epom_klass
+    	klass = self.epom_class
     	fields = self.epom_fields
     	before_save do 
     		klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
@@ -78,7 +54,7 @@ class ActiveRecord::Base
 
   def self.define_before_destroy
     unless EpomRails.config.offline
-      klass = self.epom_klass
+      klass = self.epom_class
       fields = self.epom_fields
       before_destroy do
         if self.send fields.key('id')
