@@ -1,3 +1,3 @@
 module EpomRails
-  VERSION = "2.0.0"
+  VERSION = "0.4.9"
 end
