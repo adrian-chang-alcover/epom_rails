@@ -30,7 +30,7 @@ Run the following generator command, then edit the generated file.
 The following example shows how to use the acts_as_advertiser method specifing your local attributes with the equivalent attributes in Epom. For example, your epom_id attribute is equivalent with id attribute in Epom.
  ```
 class Advertiser < ActiveRecord::Base
-	acts_as_advertiser epom_id: 'id', name: 'name', contact_name: 'contactName', contact_email: 'contactEmail', description: 'description'
+	acts_as_advertiser fields: {epom_id: 'id', name: 'name', contact_name: 'contactName', contact_email: 'contactEmail', description: 'description'}
 end
 ```
 
@@ -39,31 +39,39 @@ Now, every time you save, update or delete an advertiser it is synchronized in E
 You have the method <code>acts_as_campaign</code>, <code>acts_as_banner</code>, <code>acts_as_site</code>, <code>acts_as_zone</code> and <code>acts_as_placement</code> too.
 ```
 class Campaign < ActiveRecord::Base
-	acts_as_campaign epom_id: 'id', name: 'name', description: 'description', advertiser_id: 'advertiserId', weight: 'weight'
+	acts_as_campaign fields: {epom_id: 'id', name: 'name', description: 'description', advertiser_id: 'advertiserId', weight: 'weight'}
 end
 ```
 
 ```
 class Banner < ActiveRecord::Base
-	acts_as_banner epom_id: 'id', placement_type: 'placementType', campaign_id: 'campaignId', weight: 'weight', image_banner_link: 'imageBannerLink', url: 'url', name: 'name', banner_type: 'bannerType', ad_unit_id: 'adUnitId', ad_unit_width: 'adUnitWidth', ad_unit_height: 'adUnitHeight'
+	acts_as_banner fields: {epom_id: 'id', placement_type: 'placementType', campaign_id: 'campaignId', weight: 'weight', image_banner_link: 'imageBannerLink', url: 'url', name: 'name', banner_type: 'bannerType', ad_unit_id: 'adUnitId', ad_unit_width: 'adUnitWidth', ad_unit_height: 'adUnitHeight'}
 end
 ```
 
 ```
 class Site < ActiveRecord::Base
-	acts_as_site epom_id: 'id', name: 'name', url: 'url', description: 'description', email: 'email', category_id: 'categoryId'
+	acts_as_site fields: {epom_id: 'id', name: 'name', url: 'url', description: 'description', email: 'email', category_id: 'categoryId'}
 end
 ```
 
 ```
 class Zone < ActiveRecord::Base
-	acts_as_zone epom_id: 'id', name: 'name', description: 'description', site_id: 'siteId'
+	acts_as_zone fields: {epom_id: 'id', name: 'name', description: 'description', site_id: 'siteId'}
 end
 ```
 
 ```
 class Placement < ActiveRecord::Base
-	acts_as_placement epom_id: 'id', zone_id: 'zoneId', placement_type: 'type', name: 'name', ad_unit_id: 'adUnitId', size_height: 'size.height', size_width: 'size.width'
+	acts_as_placement fields: {epom_id: 'id', zone_id: 'zoneId', placement_type: 'type', name: 'name', ad_unit_id: 'adUnitId', size_height: 'size.height', size_width: 'size.width'}
+end
+```
+
+You can specify associations between models, for example, Publisher model acts as Site, and Zone model belongs to Publisher.
+```
+class Zone < ActiveRecord::Base
+	belongs_to :publisher
+	acts_as_zone belongs_to: [{:name => 'publisher', :epom_element => 'Site', :model => 'Publisher'}]
 end
 ```
 
