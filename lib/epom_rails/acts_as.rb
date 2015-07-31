@@ -5,7 +5,7 @@ class ActiveRecord::Base
   def self.acts_as(klass, params)
     extend EpomRails
     
-    override_fields(klass, params[:fields])
+    override_config(klass, params)
     define_before_save(klass)
     define_before_destroy(klass)
   end
@@ -19,11 +19,12 @@ class ActiveRecord::Base
     EpomRails.config.send(klass_name.downcase)
   end
 
-  def self.override_fields(klass, fields)
+  def self.override_config(klass, params)
     fields ||= {}
-    klass_name = get_klass_name(klass)
     config = get_config(klass)
-    config[:fields].merge!(fields)    
+    config[:fields] = params[:fields] if params[:fields]
+    config[:has_many] = params[:has_many] if params[:has_many]
+    config[:belongs_to] = params[:belongs_to] if params[:belongs_to]
   end
 
   def self.define_before_save(klass)
