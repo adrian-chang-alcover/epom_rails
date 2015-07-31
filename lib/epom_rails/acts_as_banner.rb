@@ -1,8 +1,8 @@
 class ActiveRecord::Base 
 
-  def self.acts_as_banner(fields = {})
+  def self.acts_as_banner(params = {})
   	EpomRails.config.banner[:model] = self
-    acts_as(Epom::Banner, fields)
+    acts_as(Epom::Banner, params)
   end
 
 end

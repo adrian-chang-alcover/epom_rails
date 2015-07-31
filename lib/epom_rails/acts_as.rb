@@ -2,20 +2,30 @@ class ActiveRecord::Base
 
   private
 
-  def self.acts_as(klass, fields = {})
+  def self.acts_as(klass, params)
     extend EpomRails
 
     self.epom_class = klass
-    self.epom_fields = fields
+    self.epom_fields = params[:fields]
     
-    define_before_save
+    override_fields(klass, params[:fields])
+    define_before_save(klass)
     define_before_destroy
   end
 
-  def self.define_before_save
+  def self.override_fields(klass, fields)
+    fields ||= {}
+    klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
+    config = EpomRails.config.send(klass_name.downcase)
+    config[:fields].merge!(fields)    
+  end
+
+  def self.define_before_save(klass)
     unless EpomRails.config.offline
-    	klass = self.epom_class
-    	fields = self.epom_fields
+    	klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
+      config = EpomRails.config.send(klass_name.downcase)
+    	fields = config[:fields]
+      
     	before_save do 
     		klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
 
