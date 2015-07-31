@@ -1,7 +1,7 @@
 class ActiveRecord::Base 
 
   def self.acts_as_advertiser(parameters)
-    EpomRails.advertiser_class = self
+    EpomRails.config.advertiser[:model] = self
   	fields = parameters.select{|key, value| self.column_names.include? key}
 
     acts_as(Epom::Advertiser, fields)

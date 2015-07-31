@@ -11,7 +11,6 @@ require 'epom_rails/config'
 
 module EpomRails
 	attr_accessor :epom_class, :epom_fields
-	mattr_accessor :advertiser_class, :campaign_class, :banner_class, :site_class, :zone_class, :placement_class
 
 	def method_missing(method_name, *args)
 		if not EpomRails.config.offline and epom_class.respond_to?(method_name)
