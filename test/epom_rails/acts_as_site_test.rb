@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ActsAsSiteTest < ActiveSupport::TestCase
 	def epom_field(field)
-		Site.epom_fields.key(field)
+		EpomRails.config.site[:fields].key(field)
 	end
 
 	test 'fancy_method' do

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ActsAsCampaignTest < ActiveSupport::TestCase
 	def epom_field(field)
-		Campaign.epom_fields.key(field)
+		EpomRails.config.campaign[:fields].key(field)
 	end
 
 	test 'fancy_method' do

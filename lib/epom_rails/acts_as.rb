@@ -4,31 +4,34 @@ class ActiveRecord::Base
 
   def self.acts_as(klass, params)
     extend EpomRails
-
-    self.epom_class = klass
-    self.epom_fields = params[:fields]
     
     override_fields(klass, params[:fields])
     define_before_save(klass)
-    define_before_destroy
+    define_before_destroy(klass)
+  end
+
+  def self.get_klass_name(klass)
+    klass.name.include?('::') ? klass.name.split('::').last : klass.name
+  end
+
+  def self.get_config(klass)
+    klass_name = get_klass_name(klass)
+    EpomRails.config.send(klass_name.downcase)
   end
 
   def self.override_fields(klass, fields)
     fields ||= {}
-    klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
-    config = EpomRails.config.send(klass_name.downcase)
+    klass_name = get_klass_name(klass)
+    config = get_config(klass)
     config[:fields].merge!(fields)    
   end
 
   def self.define_before_save(klass)
     unless EpomRails.config.offline
-    	klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
-      config = EpomRails.config.send(klass_name.downcase)
-    	fields = config[:fields]
-      
-    	before_save do 
-    		klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
+    	klass_name = get_klass_name(klass)
+    	fields = get_config(klass)[:fields]
 
+    	before_save do 
         method = if self.send fields.key('id') then "update_#{klass_name.downcase}" else "create_#{klass_name.downcase}" end
         
         url_params = {}
@@ -62,13 +65,12 @@ class ActiveRecord::Base
     end  
   end
 
-  def self.define_before_destroy
+  def self.define_before_destroy(klass)
     unless EpomRails.config.offline
-      klass = self.epom_class
-      fields = self.epom_fields
+      klass_name = get_klass_name(klass)
+      fields = get_config(klass)[:fields]
       before_destroy do
-        if self.send fields.key('id')
-          klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
+        if self.send fields.key('id')          
           epom_response = klass.send "delete_#{klass_name.downcase}", {"#{klass_name.downcase}Id" => self.send(fields.key('id'))}, {}
           epom_response['success'] if epom_response
         end
