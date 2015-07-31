@@ -10,14 +10,22 @@ require 'epom_rails/acts_as_placement'
 require 'epom_rails/config'
 
 module EpomRails
-	attr_accessor :epom_class, :epom_fields
-	mattr_accessor :advertiser_class, :campaign_class, :banner_class, :site_class, :zone_class, :placement_class
-
 	def method_missing(method_name, *args)
 		if not EpomRails.config.offline and epom_class.respond_to?(method_name)
 			epom_class.send(method_name, args[0], args[1])
 		else
 			super
 		end
+	end
+
+	private
+
+	def epom_class
+		return Epom::Advertiser if EpomRails.config.advertiser[:model] == self
+		return Epom::Campaign if EpomRails.config.campaign[:model] == self
+		return Epom::Banner if EpomRails.config.banner[:model] == self
+		return Epom::Site if EpomRails.config.site[:model] == self
+		return Epom::Zone if EpomRails.config.zone[:model] == self
+		return Epom::Placement if EpomRails.config.placement[:model] == self
 	end
 end

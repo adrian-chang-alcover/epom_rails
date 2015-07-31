@@ -5,11 +5,11 @@ one:
   url: http://www.example.com
   description: MyText
   email: user@example.com
-  category_id: 2
+  category_id: 1
 
 two:
   name: MyString
   url: http://www.example.com
   description: MyText
   email: user@example.com
-  category_id: 2
+  category_id: 1

@@ -1,8 +1,8 @@
 class ActiveRecord::Base 
 
-  def self.acts_as_site(fields = {})
-  	EpomRails.site_class = self
-    acts_as(Epom::Site, fields)
+  def self.acts_as_site(params = {})
+  	EpomRails.config.site[:model] = self
+    acts_as(Epom::Site, params)
   end
 
 end

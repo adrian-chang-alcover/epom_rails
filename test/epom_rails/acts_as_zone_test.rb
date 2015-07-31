@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ActsAsZoneTest < ActiveSupport::TestCase
 	def epom_field(field)
-		Zone.epom_fields.key(field)
+		EpomRails.config.zone[:fields].key(field)
 	end
 
 	test 'fancy_method' do
@@ -43,5 +43,9 @@ class ActsAsZoneTest < ActiveSupport::TestCase
 			response = Zone.get_zone_placements({:zoneId => zone.send(epom_field('id'))}, {})
 			assert_instance_of Array, response	
 		end
+	end
+
+	test 'belongs_to config' do
+		assert [{:name => 'publisher', :epom_element => 'Site', :model => 'Publisher'}], EpomRails.config.zone[:belongs_to]
 	end
 end

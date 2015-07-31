@@ -1,20 +1,16 @@
-<%= form_for(@site) do |f| %>
-  <% if @site.errors.any? %>
+<%= form_for(@publisher) do |f| %>
+  <% if @publisher.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@site.errors.count, "error") %> prohibited this site from being saved:</h2>
+      <h2><%= pluralize(@publisher.errors.count, "error") %> prohibited this publisher from being saved:</h2>
 
       <ul>
-      <% @site.errors.full_messages.each do |message| %>
+      <% @publisher.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :epom_id %><br>
-    <%= f.number_field :epom_id %>
-  </div>
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
@@ -34,6 +30,10 @@
   <div class="field">
     <%= f.label :category_id %><br>
     <%= f.number_field :category_id %>
+  </div>
+  <div class="field">
+    <%= f.label :epom_id %><br>
+    <%= f.number_field :epom_id %>
   </div>
   <div class="actions">
     <%= f.submit %>
