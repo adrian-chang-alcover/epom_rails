@@ -26,6 +26,6 @@ module EpomRails
 		return Epom::Banner if EpomRails.config.banner[:model] == self
 		return Epom::Site if EpomRails.config.site[:model] == self
 		return Epom::Zone if EpomRails.config.zone[:model] == self
-		return Epom::Placement if EpomRails.config.placement[:model] == self 
+		return Epom::Placement if EpomRails.config.placement[:model] == self
 	end
 end
