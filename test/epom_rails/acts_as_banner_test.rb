@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ActsAsBannerTest < ActiveSupport::TestCase
 	def epom_field(field)
-		Banner.epom_fields.key(field)
+		EpomRails.config.banner[:fields].key(field)
 	end
 
 	test 'fancy_method' do

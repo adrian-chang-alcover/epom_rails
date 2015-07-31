@@ -1,48 +1,38 @@
 class ActiveRecord::Base 
 
-  def self.acts_as_advertiser(fields = {})
-    acts_as(Epom::Advertiser, fields)
-  end
-
-  def self.acts_as_campaign(fields = {})
-    acts_as(Epom::Campaign, fields)
-  end
-
-  def self.acts_as_banner(fields = {})
-    acts_as(Epom::Banner, fields)
-  end
-
-  def self.acts_as_site(fields = {})
-    acts_as(Epom::Site, fields)
-  end
-
-  def self.acts_as_zone(fields = {})
-    acts_as(Epom::Zone, fields)
-  end
-
-  def self.acts_as_placement(fields = {})
-    acts_as(Epom::Placement, fields)
-  end
-
   private
 
-  def self.acts_as(klass, fields = {})
+  def self.acts_as(klass, params)
     extend EpomRails
-
-    self.epom_klass = klass
-    self.epom_fields = fields
     
-    define_before_save
-    define_before_destroy
+    override_config(klass, params)
+    define_before_save(klass)
+    define_before_destroy(klass)
   end
 
-  def self.define_before_save
-    unless EpomRails.config.offline
-    	klass = self.epom_klass
-    	fields = self.epom_fields
-    	before_save do 
-    		klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
+  def self.get_klass_name(klass)
+    klass.name.include?('::') ? klass.name.split('::').last : klass.name
+  end
 
+  def self.get_config(klass)
+    klass_name = get_klass_name(klass)
+    EpomRails.config.send(klass_name.downcase)
+  end
+
+  def self.override_config(klass, params)
+    fields ||= {}
+    config = get_config(klass)
+    config[:fields] = params[:fields] if params[:fields]
+    config[:has_many] = params[:has_many] if params[:has_many]
+    config[:belongs_to] = params[:belongs_to] if params[:belongs_to]
+  end
+
+  def self.define_before_save(klass)
+    unless EpomRails.config.offline
+    	klass_name = get_klass_name(klass)
+    	fields = get_config(klass)[:fields]
+
+    	before_save do 
         method = if self.send fields.key('id') then "update_#{klass_name.downcase}" else "create_#{klass_name.downcase}" end
         
         url_params = {}
@@ -68,7 +58,7 @@ class ActiveRecord::Base
         epom_response = klass.send method, url_params, body_params
     		
         unless self.send fields.key('id')
-    			# save id value returned from Epom in an Advertiser column
+    			# save id value returned from Epom
     			self.send "#{fields.key('id')}=", epom_response['id']
     		end
     		epom_response['success']
@@ -76,13 +66,12 @@ class ActiveRecord::Base
     end  
   end
 
-  def self.define_before_destroy
+  def self.define_before_destroy(klass)
     unless EpomRails.config.offline
-      klass = self.epom_klass
-      fields = self.epom_fields
+      klass_name = get_klass_name(klass)
+      fields = get_config(klass)[:fields]
       before_destroy do
-        if self.send fields.key('id')
-          klass_name = klass.name.include?('::') ? klass.name.split('::').last : klass.name
+        if self.send fields.key('id')          
           epom_response = klass.send "delete_#{klass_name.downcase}", {"#{klass_name.downcase}Id" => self.send(fields.key('id'))}, {}
           epom_response['success'] if epom_response
         end

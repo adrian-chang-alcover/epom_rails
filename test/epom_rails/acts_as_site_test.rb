@@ -2,16 +2,16 @@ require 'test_helper'
 
 class ActsAsSiteTest < ActiveSupport::TestCase
 	def epom_field(field)
-		Site.epom_fields.key(field)
+		EpomRails.config.site[:fields].key(field)
 	end
 
 	test 'fancy_method' do
-	  	assert_raises NoMethodError do Site.fancy_method end
+	  	assert_raises NoMethodError do Publisher.fancy_method end
 	end
 
 	test 'save an site' do
 		unless EpomRails.config.offline
-			site = sites(:one)	  	
+			site = publishers(:one)	  	
 
 	  	assert	site.save
 	  	assert_instance_of Fixnum, site.send(epom_field('id'))
@@ -33,7 +33,7 @@ class ActsAsSiteTest < ActiveSupport::TestCase
 
 	test 'delete an site' do
 		unless EpomRails.config.offline
-			site = sites(:one)	  	
+			site = publishers(:one)	  	
 
 	  	assert	site.save
 	  	assert_instance_of Fixnum, site.send(epom_field('id'))
@@ -45,12 +45,12 @@ class ActsAsSiteTest < ActiveSupport::TestCase
 
 	test 'epom methods' do
 		unless EpomRails.config.offline
-			site = sites(:one)	  	
+			site = publishers(:one)	  	
 
 		  	assert	site.save
 		  	assert_instance_of Fixnum, site.send(epom_field('id'))
 
-			response = Site.get_sites_zones({:siteId => site.send(epom_field('id'))}, {})
+			response = Publisher.get_sites_zones({:siteId => site.send(epom_field('id'))}, {})
 			assert_instance_of Array, response	
 		end
 	end

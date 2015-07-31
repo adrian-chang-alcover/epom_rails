@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ActsAsAdvertiserTest < ActiveSupport::TestCase
 	def epom_field(field)
-		Advertiser.epom_fields.key(field)
+		EpomRails.config.advertiser[:fields].key(field)
 	end
 
 	test 'fancy_method' do
