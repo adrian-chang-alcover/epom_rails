@@ -44,7 +44,7 @@ class ActiveRecord::Base
         epom_response = klass.send method, url_params, body_params
     		
         unless self.send fields.key('id')
-    			# save id value returned from Epom in an Advertiser column
+    			# save id value returned from Epom
     			self.send "#{fields.key('id')}=", epom_response['id']
     		end
     		epom_response['success']
