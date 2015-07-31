@@ -2,16 +2,14 @@
 
 one:
   name: MyString
-  url: MyString
+  url: http://www.example.com
   description: MyText
-  email: MyString
+  email: user@example.com
   category_id: 1
-  epom_id: 1
 
 two:
   name: MyString
-  url: MyString
+  url: http://www.example.com
   description: MyText
-  email: MyString
+  email: user@example.com
   category_id: 1
-  epom_id: 1

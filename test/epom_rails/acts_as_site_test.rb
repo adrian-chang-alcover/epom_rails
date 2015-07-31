@@ -50,7 +50,7 @@ class ActsAsSiteTest < ActiveSupport::TestCase
 		  	assert	site.save
 		  	assert_instance_of Fixnum, site.send(epom_field('id'))
 
-			response = Site.get_sites_zones({:siteId => site.send(epom_field('id'))}, {})
+			response = Publisher.get_sites_zones({:siteId => site.send(epom_field('id'))}, {})
 			assert_instance_of Array, response	
 		end
 	end

@@ -44,4 +44,8 @@ class ActsAsZoneTest < ActiveSupport::TestCase
 			assert_instance_of Array, response	
 		end
 	end
+
+	test 'belongs_to config' do
+		assert [{:name => 'publisher', :epom_element => 'Site', :model => 'Publisher'}], EpomRails.config.zone[:belongs_to]
+	end
 end
