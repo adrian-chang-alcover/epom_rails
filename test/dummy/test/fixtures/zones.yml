@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  epom_id: 1
+  name: MyString
+  description: MyText
+  publisher_id: 1
+
+two:
+  epom_id: 1
+  name: MyString
+  description: MyText
+  publisher_id: 1
