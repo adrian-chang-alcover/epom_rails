@@ -42,4 +42,10 @@ class ActsAsCampaignTest < ActiveSupport::TestCase
 			assert_equal campaign.send(epom_field('name')), response['name']
 		end		
 	end
+
+	test 'method_missing' do
+		campaign = campaigns(:one)
+		assert campaign.advertiser_id, campaign.advertiserId
+	end
+
 end

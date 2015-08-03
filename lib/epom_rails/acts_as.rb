@@ -1,5 +1,16 @@
 class ActiveRecord::Base 
 
+  def method_missing(method_name)
+    klass = self.class
+    fields = klass.get_config(klass)[:fields]
+    if fields.values.include?(method_name.to_s)
+      real_method = fields.key(method_name.to_s)
+      return self.send(real_method)
+    else
+      super
+    end
+  end 
+
   private
 
   def self.acts_as(klass, params)

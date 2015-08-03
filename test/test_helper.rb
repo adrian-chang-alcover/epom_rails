@@ -57,9 +57,9 @@ EpomRails.configure do |config|
   config.site[:has_many] = [{:name => 'zones', :epom_element => 'Zone', :model => 'Zone'}]
 
   config.zone = {}
-  config.zone[:fields] = {epom_id: 'id', name: 'name', description: 'description', site_id: 'siteId'}
+  config.zone[:fields] = {epom_id: 'id', name: 'name', description: 'description', publisher_id: 'siteId'}
   config.zone[:has_many] = [{:name => 'placements', :epom_element => 'Placement', :model => 'Placement'}]
-  config.zone[:belongs_to] = [{:name => 'site', :epom_element => 'Site', :model => 'Site'}]
+  config.zone[:belongs_to] = [{:name => 'publihser', :epom_element => 'Site', :model => 'Publisher'}]
 
   config.placement = {}
   config.placement[:fields] = {epom_id: 'id', zone_id: 'zoneId', placement_type: 'type', name: 'name', ad_unit_id: 'adUnitId', size_height: 'size.height', size_width: 'size.width'}
