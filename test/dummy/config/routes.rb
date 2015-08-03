@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   resources :publishers
   resources :placements
   resources :placements
-  resources :zones
   resources :sites
   resources :banners
   resources :campaigns
