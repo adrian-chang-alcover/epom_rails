@@ -34,12 +34,28 @@ class ActsAsCampaignTest < ActiveSupport::TestCase
 		unless EpomRails.config.offline
 			campaign = campaigns(:one)	  	
 
-		  	assert	campaign.save
-		  	assert_instance_of Fixnum, campaign.send(epom_field('id'))
+	  	assert	campaign.save
+	  	assert_instance_of Fixnum, campaign.send(epom_field('id'))
 
 			response = Campaign.get_campaign({:campaignId => campaign.send(epom_field('id'))}, {})
 			assert_equal campaign.send(epom_field('id')), response['id']
 			assert_equal campaign.send(epom_field('name')), response['name']
 		end		
 	end
+
+	test 'method_missing' do
+		campaign = campaigns(:one)
+		assert campaign.advertiser_id, campaign.advertiserId
+	end
+
+	test 'belongs to advertiser' do
+		campaign = campaigns(:one)
+		advertiser = advertisers(:one)
+		campaign.advertiser = advertiser
+		# ensure epom id is setted
+		advertiser.save
+
+		assert Advertiser.find(campaign.advertiser_id), campaign.advertiser
+	end
+
 end

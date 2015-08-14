@@ -1,5 +1,15 @@
 class ActiveRecord::Base 
 
+  def method_missing(method_name)
+    fields = self.class.get_config[:fields]
+    if fields.values.include?(method_name.to_s)
+      real_method = fields.key(method_name.to_s)
+      return self.send(real_method)
+    else
+      super
+    end
+  end 
+
   private
 
   def self.acts_as(klass, params)
@@ -10,18 +20,18 @@ class ActiveRecord::Base
     define_before_destroy(klass)
   end
 
-  def self.get_klass_name(klass)
-    klass.name.include?('::') ? klass.name.split('::').last : klass.name
+  def self.get_epom_class_name
+    epom_class.name.include?('::') ? epom_class.name.split('::').last : epom_class.name
   end
 
-  def self.get_config(klass)
-    klass_name = get_klass_name(klass)
+  def self.get_config
+    klass_name = get_epom_class_name
     EpomRails.config.send(klass_name.downcase)
   end
 
   def self.override_config(klass, params)
     fields ||= {}
-    config = get_config(klass)
+    config = get_config
     config[:fields] = params[:fields] if params[:fields]
     config[:has_many] = params[:has_many] if params[:has_many]
     config[:belongs_to] = params[:belongs_to] if params[:belongs_to]
@@ -29,8 +39,8 @@ class ActiveRecord::Base
 
   def self.define_before_save(klass)
     unless EpomRails.config.offline
-    	klass_name = get_klass_name(klass)
-    	fields = get_config(klass)[:fields]
+    	klass_name = get_epom_class_name
+    	fields = get_config[:fields]
 
     	before_save do 
         method = if self.send fields.key('id') then "update_#{klass_name.downcase}" else "create_#{klass_name.downcase}" end
@@ -68,8 +78,8 @@ class ActiveRecord::Base
 
   def self.define_before_destroy(klass)
     unless EpomRails.config.offline
-      klass_name = get_klass_name(klass)
-      fields = get_config(klass)[:fields]
+      klass_name = get_epom_class_name
+      fields = get_config[:fields]
       before_destroy do
         if self.send fields.key('id')          
           epom_response = klass.send "delete_#{klass_name.downcase}", {"#{klass_name.downcase}Id" => self.send(fields.key('id'))}, {}

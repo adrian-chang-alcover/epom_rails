@@ -18,8 +18,6 @@ module EpomRails
 		end
 	end
 
-	private
-
 	def epom_class
 		return Epom::Advertiser if EpomRails.config.advertiser[:model] == self
 		return Epom::Campaign if EpomRails.config.campaign[:model] == self
