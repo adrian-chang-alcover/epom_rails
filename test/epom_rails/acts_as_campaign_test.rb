@@ -34,8 +34,8 @@ class ActsAsCampaignTest < ActiveSupport::TestCase
 		unless EpomRails.config.offline
 			campaign = campaigns(:one)	  	
 
-		  	assert	campaign.save
-		  	assert_instance_of Fixnum, campaign.send(epom_field('id'))
+	  	assert	campaign.save
+	  	assert_instance_of Fixnum, campaign.send(epom_field('id'))
 
 			response = Campaign.get_campaign({:campaignId => campaign.send(epom_field('id'))}, {})
 			assert_equal campaign.send(epom_field('id')), response['id']
