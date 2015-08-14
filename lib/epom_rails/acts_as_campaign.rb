@@ -10,6 +10,7 @@ class ActiveRecord::Base
   def self.override_belongs_to_advertiser
   	advertiser_association = EpomRails.config.campaign[:belongs_to].find{|a| a[:epom_element]=="Advertiser"}
   	
+    # overriding belongs_to: advertiser
   	define_method advertiser_association[:name] do
   		fields = EpomRails.config.campaign[:fields]
   		object = super()
