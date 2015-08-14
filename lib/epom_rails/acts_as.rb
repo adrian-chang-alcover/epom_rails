@@ -2,6 +2,9 @@ class ActiveRecord::Base
 
   def method_missing(method_name)
     fields = self.class.get_config[:fields]
+
+    # shortcut for epom fields, instead of self.send(fields.key(epom_field))
+    # use self.send(epom_field)
     if fields.values.include?(method_name.to_s)
       real_method = fields.key(method_name.to_s)
       return self.send(real_method)
@@ -21,6 +24,7 @@ class ActiveRecord::Base
   end
 
   def self.get_epom_class_name
+    # for Epom::Site returns Site
     epom_class.name.include?('::') ? epom_class.name.split('::').last : epom_class.name
   end
 
@@ -30,7 +34,6 @@ class ActiveRecord::Base
   end
 
   def self.override_config(klass, params)
-    fields ||= {}
     config = get_config
     config[:fields] = params[:fields] if params[:fields]
     config[:has_many] = params[:has_many] if params[:has_many]
