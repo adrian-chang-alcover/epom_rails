@@ -48,4 +48,14 @@ class ActsAsCampaignTest < ActiveSupport::TestCase
 		assert campaign.advertiser_id, campaign.advertiserId
 	end
 
+	test 'belongs to advertiser' do
+		campaign = campaigns(:one)
+		advertiser = advertisers(:one)
+		campaign.advertiser = advertiser
+		# ensure epom id is setted
+		advertiser.save
+
+		assert Advertiser.find(campaign.advertiser_id), campaign.advertiser
+	end
+
 end
