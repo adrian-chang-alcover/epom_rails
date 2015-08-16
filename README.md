@@ -80,6 +80,7 @@ Also, you can call the others Epom methods.
 url_params = {:advertiserId => 'advertiser_id'}
 body_params = {}
 Advertiser.get_campaigns_for_advertiser(url_params, body_params)
+# or Advertiser.get_campaigns_for_advertiser(url_params)
 ```
 
 ## Contributing
