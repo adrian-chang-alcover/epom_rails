@@ -5,8 +5,18 @@ class ActsAsAdvertiserTest < ActiveSupport::TestCase
 		EpomRails.config.advertiser[:fields].key(field)
 	end
 
+	def check_campaigns_list(campaigns1, campaigns2)
+		assert_equal campaigns1.count, campaigns2.count
+		campaigns1.each do |campaign|
+			epom_campaign = campaigns2.find{|c| c['id'] == campaign.send(epom_field('id'))}
+			assert epom_campaign
+			assert_instance_of Hash, epom_campaign
+			assert_equal campaign.name, epom_campaign['name']
+		end
+	end
+
 	test 'fancy_method' do
-	  	assert_raises NoMethodError do Advertiser.fancy_method end
+	  assert_raises NoMethodError do Advertiser.fancy_method end
 	end
 
 	test 'save an advertiser' do
@@ -66,6 +76,49 @@ class ActsAsAdvertiserTest < ActiveSupport::TestCase
 					assert_instance_of String, first['name']
 				end
 			end
+		end
+	end
+
+	test 'define_before_add_and_before_remove_for_campaigns' do
+		a1 = Advertiser.create
+		a2 = Advertiser.create
+		c = Campaign.create
+
+		puts 'a1.campaigns << c'
+		a1.campaigns << c
+		unless EpomRails.config.offline
+			# TODO: replace for a1.get_campaigns_for_advertiser
+			campaigns = Advertiser.get_campaigns_for_advertiser({advertiserId: a1.id})
+			check_campaigns_list(a1.campaigns, campaigns)
+		end
+
+		puts 'a2.campaigns << c'
+		a2.campaigns << c
+		unless EpomRails.config.offline
+			# TODO: replace for a1.get_campaigns_for_advertiser
+			campaigns = Advertiser.get_campaigns_for_advertiser({advertiserId: a1.id})
+			check_campaigns_list(a1.campaigns, campaigns)
+
+			# TODO: replace for a2.get_campaigns_for_advertiser
+			campaigns = Advertiser.get_campaigns_for_advertiser({advertiserId: a2.id})
+			check_campaigns_list(a2.campaigns, campaigns)
+		end
+
+		puts 'a2.campaigns = [Campaign.create, Campaign.create]'
+		a2.campaigns = [Campaign.create, Campaign.create]
+		assert_nil c.advertiser_id
+		unless EpomRails.config.offline
+			# TODO: replace for a2.get_campaigns_for_advertiser
+			campaigns = Advertiser.get_campaigns_for_advertiser({advertiserId: a2.id})
+			check_campaigns_list(a2.campaigns, campaigns)
+		end
+
+		puts 'a2.campaigns = []'
+		a2.campaigns = []
+		unless EpomRails.config.offline
+			# TODO: replace for a2.get_campaigns_for_advertiser
+			campaigns = Advertiser.get_campaigns_for_advertiser({advertiserId: a2.id})
+			check_campaigns_list(a2.campaigns, campaigns)
 		end
 	end
 end

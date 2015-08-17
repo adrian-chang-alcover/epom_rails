@@ -4,16 +4,20 @@ class ActiveRecord::Base
     EpomRails.config.advertiser[:model] = self
     acts_as(Epom::Advertiser, params)
 
-    override_has_many_campaigns
+    define_before_add_and_before_remove_for_campaigns
   end
 
-  def self.override_has_many_campaigns
+  def self.define_before_add_and_before_remove_for_campaigns
   	campaigns_association = EpomRails.config.advertiser[:has_many].find{|a| a[:epom_element]=="Campaign"}
   	
     if campaigns_association      
 			before_add_for_campaigns << proc do |callback, advertiser, campaign| 
-				puts [callback, advertiser, campaign]
+				puts callback
 			end
+      before_remove_for_campaigns << proc do |callback, advertiser, campaign| 
+        puts callback
+        campaign.update({advertiser_id: nil})
+      end
     end  
   end
 
