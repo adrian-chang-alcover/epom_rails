@@ -14,7 +14,7 @@ module EpomRails
 		if not EpomRails.config.offline and epom_class.respond_to?(method_name)
 			# this permits to use:
 			# Campaign.get_campaign({:campaignId => campaign.send(epom_field('id'))}, {})
-			epom_class.send(method_name, args[0], args[1])
+			epom_class.send(method_name, *args)
 		else
 			super
 		end
