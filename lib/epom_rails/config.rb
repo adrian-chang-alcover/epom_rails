@@ -38,7 +38,7 @@ module EpomRails
     config.advertiser[:has_many] = [{:name => 'campaigns', :epom_element => 'Campaign', :model => 'Campaign'}]
 
     config.campaign = {}
-    config.campaign[:fields] = {epom_id: 'id', name: 'name', description: 'description', advertiser_id: 'advertiserId', weight: 'weight'}
+    config.campaign[:fields] = {epom_id: 'id', name: 'name', description: 'description', weight: 'weight'}
     config.campaign[:has_many] = [{:name => 'banners', :epom_element => 'Banner', :model => 'Banner'}]
     config.campaign[:belongs_to] = [{:name => 'advertiser', :epom_element => 'Advertiser', :model => 'Advertiser'}]
 
