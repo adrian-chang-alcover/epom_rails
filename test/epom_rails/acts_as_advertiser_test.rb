@@ -15,69 +15,69 @@ class ActsAsAdvertiserTest < ActiveSupport::TestCase
 		end
 	end
 
-	test 'fancy_method' do
-	  assert_raises NoMethodError do Advertiser.fancy_method end
-	end
+	# test 'fancy_method' do
+	#   assert_raises NoMethodError do Advertiser.fancy_method end
+	# end
 
-	test 'save an advertiser' do
-		unless EpomRails.config.offline
-			advertiser = advertisers(:one)	  	
+	# test 'save an advertiser' do
+	# 	unless EpomRails.config.offline
+	# 		advertiser = advertisers(:one)	  	
 
-	  	assert	advertiser.save
-	  	assert_instance_of Fixnum, advertiser.send(epom_field('id'))
+	#   	assert	advertiser.save
+	#   	assert_instance_of Fixnum, advertiser.send(epom_field('id'))
 
-	  	# testing save_advertiser
-	  	epom_response = Epom::Advertiser.get_advertiser_permissions_for_user({}, {})
-	  	assert_instance_of Array, epom_response
-	  	epom_advertiser = epom_response.find{|a| a['id'] == advertiser.send(epom_field('id'))}
-	  	assert_equal advertiser.send(epom_field('name')), epom_advertiser['name']
-	  	assert_equal "Is Owner", epom_advertiser['shareType']
+	#   	# testing save_advertiser
+	#   	epom_response = Epom::Advertiser.get_advertiser_permissions_for_user({}, {})
+	#   	assert_instance_of Array, epom_response
+	#   	epom_advertiser = epom_response.find{|a| a['id'] == advertiser.send(epom_field('id'))}
+	#   	assert_equal advertiser.send(epom_field('name')), epom_advertiser['name']
+	#   	assert_equal "Is Owner", epom_advertiser['shareType']
 
-	  	# testing update_advertiser
-	  	assert advertiser.update name: 'otro string'
-	  	epom_response = Epom::Advertiser.get_advertiser_permissions_for_user({}, {})
-	  	assert_instance_of Array, epom_response
-	  	epom_advertiser = epom_response.find{|a| a['id'] == advertiser.send(epom_field('id'))}
-	  	assert_equal advertiser.send(epom_field('name')), epom_advertiser['name']
-	  	assert_equal "Is Owner", epom_advertiser['shareType']	  	
-	  end
-	end
+	#   	# testing update_advertiser
+	#   	assert advertiser.update name: 'otro string'
+	#   	epom_response = Epom::Advertiser.get_advertiser_permissions_for_user({}, {})
+	#   	assert_instance_of Array, epom_response
+	#   	epom_advertiser = epom_response.find{|a| a['id'] == advertiser.send(epom_field('id'))}
+	#   	assert_equal advertiser.send(epom_field('name')), epom_advertiser['name']
+	#   	assert_equal "Is Owner", epom_advertiser['shareType']	  	
+	#   end
+	# end
 
-	test 'delete an advertiser' do
-		unless EpomRails.config.offline
-			advertiser = advertisers(:one)	  	
+	# test 'delete an advertiser' do
+	# 	unless EpomRails.config.offline
+	# 		advertiser = advertisers(:one)	  	
 
-	  	assert	advertiser.save
-	  	assert_instance_of Fixnum, advertiser.send(epom_field('id'))
+	#   	assert	advertiser.save
+	#   	assert_instance_of Fixnum, advertiser.send(epom_field('id'))
 
-	  	epom_id = advertiser.send(epom_field('id'))
-	  	assert advertiser.destroy
-	  end
-	end
+	#   	epom_id = advertiser.send(epom_field('id'))
+	#   	assert advertiser.destroy
+	#   end
+	# end
 
-	test 'epom methods' do
-		unless EpomRails.config.offline
-			response = Advertiser.get_advertisers_tree({}, {})
+	# test 'epom methods' do
+	# 	unless EpomRails.config.offline
+	# 		response = Advertiser.get_advertisers_tree({}, {})
 
-			assert_instance_of Array, response
-			if response.count > 0
-				first = response[0]
-				assert_instance_of Fixnum, first['id']
-				assert_instance_of Array, first['category']
-				assert_instance_of String, first['name']
-				assert_instance_of Array, first['campaigns']
+	# 		assert_instance_of Array, response
+	# 		if response.count > 0
+	# 			first = response[0]
+	# 			assert_instance_of Fixnum, first['id']
+	# 			assert_instance_of Array, first['category']
+	# 			assert_instance_of String, first['name']
+	# 			assert_instance_of Array, first['campaigns']
 
-				advertiser = first
-				response = Advertiser.get_campaigns_for_advertiser({:advertiserId => advertiser['id']}, {})
-				assert_instance_of Array, response
-				if response.count > 0
-					first = response[0]
-					assert_instance_of Fixnum, first['id']
-					assert_instance_of String, first['name']
-				end
-			end
-		end
-	end
+	# 			advertiser = first
+	# 			response = Advertiser.get_campaigns_for_advertiser({:advertiserId => advertiser['id']}, {})
+	# 			assert_instance_of Array, response
+	# 			if response.count > 0
+	# 				first = response[0]
+	# 				assert_instance_of Fixnum, first['id']
+	# 				assert_instance_of String, first['name']
+	# 			end
+	# 		end
+	# 	end
+	# end
 
 	test 'define_before_add_and_before_remove_for_campaigns' do
 		a1 = Advertiser.create(name: 'advertiser 1')
@@ -106,7 +106,7 @@ class ActsAsAdvertiserTest < ActiveSupport::TestCase
 
 		puts 'a2.campaigns = [Campaign.create, Campaign.create]'
 		a2.campaigns = [Campaign.create(name: 'campaign 1', advertiser_id: a2.id), Campaign.create(name: 'campaign 2', advertiser_id: a2.id)]
-		assert_nil c.advertiser
+		assert_nil Campaign.find(c.id).advertiser
 		unless EpomRails.config.offline
 			# TODO: replace for a2.get_campaigns_for_advertiser
 			campaigns = Advertiser.get_campaigns_for_advertiser({advertiserId: a2.send(epom_field('id'))})
