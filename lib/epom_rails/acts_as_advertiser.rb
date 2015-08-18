@@ -13,10 +13,18 @@ class ActiveRecord::Base
     if campaigns_association      
 			before_add_for_campaigns << proc do |callback, advertiser, campaign| 
 				puts callback
+        if campaign.advertiser_id and advertiser.id != campaign.advertiser_id
+          # remove in Epom this campaign from his older advertiser
+          Advertiser.find(campaign.advertiser_id).campaigns.delete(campaign)
+        end
 			end
       before_remove_for_campaigns << proc do |callback, advertiser, campaign| 
         puts callback
-        campaign.update({advertiser_id: nil})
+        fields = EpomRails.config.campaign[:fields]
+        # delete this campaign in Epom
+        Campaign.delete_campaign({campaignId: campaign.send(fields.key('id'))})
+        # set nil epom_id field for this campaign
+        campaign.send "#{fields.key('id')}=", nil
       end
     end  
   end

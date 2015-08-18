@@ -82,14 +82,14 @@ class ActsAsAdvertiserTest < ActiveSupport::TestCase
 	test 'define_before_add_and_before_remove_for_campaigns' do
 		a1 = Advertiser.create(name: 'advertiser 1')
 		a2 = Advertiser.create(name: 'advertiser 2')
-		c = Campaign.create(name: 'campaign', advertiser_id: a2.send(epom_field('id')))
-
+		c = Campaign.create(name: 'campaign', advertiser_id: a2.id)
+		
 		puts 'a1.campaigns << c'
 		a1.campaigns << c
 		unless EpomRails.config.offline
 			# TODO: replace for a1.get_campaigns_for_advertiser
 			campaigns = Advertiser.get_campaigns_for_advertiser({advertiserId: a1.send(epom_field('id'))})
-			check_campaigns_list(a1.campaigns, campaigns)
+			check_campaigns_list(a1.campaigns(true), campaigns)
 		end
 
 		puts 'a2.campaigns << c'
@@ -97,20 +97,20 @@ class ActsAsAdvertiserTest < ActiveSupport::TestCase
 		unless EpomRails.config.offline
 			# TODO: replace for a1.get_campaigns_for_advertiser
 			campaigns = Advertiser.get_campaigns_for_advertiser({advertiserId: a1.send(epom_field('id'))})
-			check_campaigns_list(a1.campaigns, campaigns)
+			check_campaigns_list(a1.campaigns(true), campaigns)
 
 			# TODO: replace for a2.get_campaigns_for_advertiser
 			campaigns = Advertiser.get_campaigns_for_advertiser({advertiserId: a2.send(epom_field('id'))})
-			check_campaigns_list(a2.campaigns, campaigns)
+			check_campaigns_list(a2.campaigns(true), campaigns)
 		end
 
 		puts 'a2.campaigns = [Campaign.create, Campaign.create]'
-		a2.campaigns = [Campaign.create, Campaign.create]
-		assert_nil c.advertiser_id
+		a2.campaigns = [Campaign.create(name: 'campaign 1', advertiser_id: a2.id), Campaign.create(name: 'campaign 2', advertiser_id: a2.id)]
+		assert_nil c.advertiser
 		unless EpomRails.config.offline
 			# TODO: replace for a2.get_campaigns_for_advertiser
 			campaigns = Advertiser.get_campaigns_for_advertiser({advertiserId: a2.send(epom_field('id'))})
-			check_campaigns_list(a2.campaigns, campaigns)
+			check_campaigns_list(a2.campaigns(true), campaigns)
 		end
 
 		puts 'a2.campaigns = []'
@@ -118,7 +118,7 @@ class ActsAsAdvertiserTest < ActiveSupport::TestCase
 		unless EpomRails.config.offline
 			# TODO: replace for a2.get_campaigns_for_advertiser
 			campaigns = Advertiser.get_campaigns_for_advertiser({advertiserId: a2.send(epom_field('id'))})
-			check_campaigns_list(a2.campaigns, campaigns)
+			check_campaigns_list(a2.campaigns(true), campaigns)
 		end
 	end
 end
