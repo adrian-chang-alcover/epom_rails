@@ -6,6 +6,6 @@ class Campaign < ActiveRecord::Base
 	attr_accessor :epom_advertiser_id
 
 	def epom_advertiser_id
-		Advertiser.find(advertiser_id).epom_id if advertiser_id
+		advertiser.epom_id if advertiser
 	end
 end

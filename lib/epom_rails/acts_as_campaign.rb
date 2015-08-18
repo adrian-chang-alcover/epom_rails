@@ -19,6 +19,7 @@ class ActiveRecord::Base
     		if object.respond_to?(fields.key('id')) and object.send(fields.key('id'))
           # here, retrieve this advertiser from Epom
         end
+        object
     	end
     end  
   end

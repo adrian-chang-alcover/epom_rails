@@ -3,6 +3,7 @@ require 'test_helper'
 class CampaignsControllerTest < ActionController::TestCase
   setup do
     @campaign = campaigns(:one)
+    @campaign.advertiser.update(epom_id: 1)
   end
 
   test "should get index" do
