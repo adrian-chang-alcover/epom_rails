@@ -4,7 +4,7 @@ class CreateZones < ActiveRecord::Migration
       t.integer :epom_id
       t.string :name
       t.text :description
-      t.integer :site_id
+      t.integer :publisher_id
 
       t.timestamps null: false
     end

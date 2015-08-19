@@ -53,6 +53,6 @@ class ZonesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def zone_params
-      params.require(:zone).permit(:epom_id, :name, :description, :site_id)
+      params.require(:zone).permit(:epom_id, :name, :description, :publisher_id)
     end
 end

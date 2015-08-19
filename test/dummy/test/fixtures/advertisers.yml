@@ -11,3 +11,4 @@ two:
   contact_name: MyString
   contact_email: 
   description: MyText
+  epom_id: 2

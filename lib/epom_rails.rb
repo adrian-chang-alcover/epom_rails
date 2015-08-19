@@ -12,13 +12,13 @@ require 'epom_rails/config'
 module EpomRails
 	def method_missing(method_name, *args)
 		if not EpomRails.config.offline and epom_class.respond_to?(method_name)
-			epom_class.send(method_name, args[0], args[1])
+			# this permits to use:
+			# Campaign.get_campaign({:campaignId => campaign.send(epom_field('id'))}, {})
+			epom_class.send(method_name, *args)
 		else
 			super
 		end
 	end
-
-	private
 
 	def epom_class
 		return Epom::Advertiser if EpomRails.config.advertiser[:model] == self

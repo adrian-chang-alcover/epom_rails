@@ -18,7 +18,7 @@ class ZonesControllerTest < ActionController::TestCase
 
   test "should create zone" do
     assert_difference('Zone.count') do
-      post :create, zone: { description: @zone.description, epom_id: @zone.epom_id, name: @zone.name, site_id: @zone.site_id }
+      post :create, zone: { description: @zone.description, epom_id: @zone.epom_id, name: @zone.name, publisher_id: @zone.publisher_id }
     end
 
     assert_redirected_to zone_path(assigns(:zone))
@@ -35,7 +35,7 @@ class ZonesControllerTest < ActionController::TestCase
   end
 
   test "should update zone" do
-    patch :update, id: @zone, zone: { description: @zone.description, epom_id: @zone.epom_id, name: @zone.name, site_id: @zone.site_id }
+    patch :update, id: @zone, zone: { description: @zone.description, epom_id: @zone.epom_id, name: @zone.name, publisher_id: @zone.publisher_id }
     assert_redirected_to zone_path(assigns(:zone))
   end
 

@@ -2,12 +2,12 @@
 
 one:
   name: MyString
-  advertiser_id: 1
+  advertiser: one
   description: MyText
   weight: 1
 
 two:
   name: MyString
-  advertiser_id: 1
+  advertiser: two
   description: MyText
   weight: 1

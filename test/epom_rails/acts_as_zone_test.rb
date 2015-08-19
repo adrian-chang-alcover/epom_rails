@@ -48,4 +48,14 @@ class ActsAsZoneTest < ActiveSupport::TestCase
 	test 'belongs_to config' do
 		assert [{:name => 'publisher', :epom_element => 'Site', :model => 'Publisher'}], EpomRails.config.zone[:belongs_to]
 	end
+
+	test 'belongs to publisher' do
+		zone = zones(:one)
+		publisher = publishers(:one)
+		zone.publisher = publisher
+		# ensure epom id is setted
+		publisher.save
+
+		assert Publisher.find(zone.publisher_id), zone.publisher
+	end
 end
