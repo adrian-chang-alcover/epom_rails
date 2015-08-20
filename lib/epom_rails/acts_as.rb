@@ -8,6 +8,14 @@ class ActiveRecord::Base
     if fields.values.include?(method_name.to_s)
       real_method = fields.key(method_name.to_s)
       return self.send(real_method)
+    # when self.send('advertiser.epom_id')
+    elsif method_name.to_s.include?('.')
+      methods = method_name.to_s.split('.')
+      target = self
+      methods.each do |method|
+        target = target.send(method)
+      end
+      return target
     else
       super
     end
