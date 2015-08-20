@@ -2,8 +2,7 @@ require 'test_helper'
 
 class CampaignsControllerTest < ActionController::TestCase
   setup do
-    @campaign = campaigns(:one)
-    @campaign.advertiser.update(epom_id: 1)
+    @campaign = campaigns(:two)
   end
 
   test "should get index" do
@@ -36,11 +35,13 @@ class CampaignsControllerTest < ActionController::TestCase
   end
 
   test "should update campaign" do
-    patch :update, id: @campaign, campaign: { advertiser_id: @campaign.advertiser_id, description: @campaign.description, name: @campaign.name, weight: @campaign.weight }
+    patch :update, id: campaigns(:one), campaign: { advertiser_id: @campaign.advertiser_id, description: @campaign.description, name: @campaign.name, weight: @campaign.weight }
     assert_redirected_to campaign_path(assigns(:campaign))
   end
 
   test "should destroy campaign" do
+    @campaign.epom_id = nil
+    @campaign.save
     assert_difference('Campaign.count', -1) do
       delete :destroy, id: @campaign
     end

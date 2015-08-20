@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ZonesControllerTest < ActionController::TestCase
   setup do
-    @zone = zones(:one)
+    @zone = zones(:two)
   end
 
   test "should get index" do
@@ -40,6 +40,8 @@ class ZonesControllerTest < ActionController::TestCase
   end
 
   test "should destroy zone" do
+    @zone.epom_id = nil
+    @zone.save
     assert_difference('Zone.count', -1) do
       delete :destroy, id: @zone
     end

@@ -11,7 +11,8 @@ class ActsAsZoneTest < ActiveSupport::TestCase
 
 	test 'save an zone' do
 		unless EpomRails.config.offline
-			zone = zones(:one)	  	
+			zone = zones(:two)
+			zone.epom_id = nil	  	
 
 	  	assert	zone.save
 	  	assert_instance_of Fixnum, zone.send(epom_field('id'))
@@ -23,7 +24,8 @@ class ActsAsZoneTest < ActiveSupport::TestCase
 
 	test 'delete an zone' do
 		unless EpomRails.config.offline
-			zone = zones(:one)	  	
+			zone = zones(:two)
+			zone.epom_id = nil		
 
 	  	assert	zone.save
 	  	assert_instance_of Fixnum, zone.send(epom_field('id'))
@@ -35,7 +37,8 @@ class ActsAsZoneTest < ActiveSupport::TestCase
 
 	test 'epom methods' do
 		unless EpomRails.config.offline
-			zone = zones(:one)	  	
+			zone = zones(:two)
+			zone.epom_id = nil	
 
 	  	assert	zone.save
 	  	assert_instance_of Fixnum, zone.send(epom_field('id'))

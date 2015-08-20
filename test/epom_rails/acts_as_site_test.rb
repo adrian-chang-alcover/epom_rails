@@ -11,7 +11,8 @@ class ActsAsSiteTest < ActiveSupport::TestCase
 
 	test 'save an site' do
 		unless EpomRails.config.offline
-			site = publishers(:one)	  	
+			site = publishers(:two)
+			site.epom_id = nil	
 
 	  	assert	site.save
 	  	assert_instance_of Fixnum, site.send(epom_field('id'))
@@ -33,7 +34,8 @@ class ActsAsSiteTest < ActiveSupport::TestCase
 
 	test 'delete an site' do
 		unless EpomRails.config.offline
-			site = publishers(:one)	  	
+			site = publishers(:two)
+			site.epom_id = nil
 
 	  	assert	site.save
 	  	assert_instance_of Fixnum, site.send(epom_field('id'))
@@ -45,10 +47,11 @@ class ActsAsSiteTest < ActiveSupport::TestCase
 
 	test 'epom methods' do
 		unless EpomRails.config.offline
-			site = publishers(:one)	  	
+			site = publishers(:two)
+			site.epom_id = nil	
 
-		  	assert	site.save
-		  	assert_instance_of Fixnum, site.send(epom_field('id'))
+	  	assert	site.save
+	  	assert_instance_of Fixnum, site.send(epom_field('id'))
 
 			response = Publisher.get_sites_zones({:siteId => site.send(epom_field('id'))}, {})
 			assert_instance_of Array, response	

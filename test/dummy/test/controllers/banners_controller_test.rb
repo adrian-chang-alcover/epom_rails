@@ -2,7 +2,7 @@ require 'test_helper'
 
 class BannersControllerTest < ActionController::TestCase
   setup do
-    @banner = banners(:one)
+    @banner = banners(:two)
   end
 
   test "should get index" do
@@ -40,6 +40,8 @@ class BannersControllerTest < ActionController::TestCase
   end
 
   test "should destroy banner" do
+    @banner.epom_id = nil
+    @banner.save
     assert_difference('Banner.count', -1) do
       delete :destroy, id: @banner
     end

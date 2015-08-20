@@ -1,6 +1,6 @@
 class ActiveRecord::Base 
 
-  def method_missing(method_name)
+  def method_missing(method_name, *args)
     fields = self.class.get_config[:fields]
 
     # shortcut for epom fields, instead of self.send(fields.key(epom_field))
@@ -8,6 +8,18 @@ class ActiveRecord::Base
     if fields.values.include?(method_name.to_s)
       real_method = fields.key(method_name.to_s)
       return self.send(real_method)
+    # when self.send('advertiser.epom_id')
+    elsif method_name.to_s.include?('.')
+      methods = method_name.to_s.split('.')
+      target = self
+      methods.each do |method|
+        if method == methods.last
+          target = target.send(method, *args)
+        else
+          target = target.send(method)
+        end
+      end  
+      return target
     else
       super
     end
