@@ -12,7 +12,6 @@ class ActsAsPlacementTest < ActiveSupport::TestCase
 	test 'save an placement' do
 		unless EpomRails.config.offline
 			placement = placements(:one)	
-			byebug  	
 
 	  	assert	placement.save
 	  	assert_instance_of Fixnum, placement.send(epom_field('id'))

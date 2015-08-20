@@ -2,8 +2,7 @@ require 'test_helper'
 
 class PlacementsControllerTest < ActionController::TestCase
   setup do
-    @placement = placements(:one)
-    @placement.zone.update(epom_id: 1)
+    @placement = placements(:two)
   end
 
   test "should get index" do
@@ -19,7 +18,7 @@ class PlacementsControllerTest < ActionController::TestCase
 
   test "should create placement" do
     assert_difference('Placement.count') do
-      post :create, placement: { ad_unit_id: @placement.ad_unit_id, epom_id: @placement.epom_id, name: @placement.name, placement_type: @placement.placement_type, size_height: @placement.size_height, size_width: @placement.size_width, zone_id: @placement.zone_id }
+      post :create, placement: { ad_unit_id: @placement.ad_unit_id, name: @placement.name, placement_type: @placement.placement_type, size_height: @placement.size_height, size_width: @placement.size_width, zone_id: @placement.zone_id }
     end
 
     assert_redirected_to placement_path(assigns(:placement))
@@ -36,11 +35,13 @@ class PlacementsControllerTest < ActionController::TestCase
   end
 
   test "should update placement" do
-    patch :update, id: @placement, placement: { ad_unit_id: @placement.ad_unit_id, epom_id: @placement.epom_id, name: @placement.name, placement_type: @placement.placement_type, size_height: @placement.size_height, size_width: @placement.size_width, zone_id: @placement.zone_id }
+    patch :update, id: placements(:one), placement: { ad_unit_id: @placement.ad_unit_id, name: @placement.name, placement_type: @placement.placement_type, size_height: @placement.size_height, size_width: @placement.size_width, zone_id: @placement.zone_id }
     assert_redirected_to placement_path(assigns(:placement))
   end
 
   test "should destroy placement" do
+    @placement.epom_id = nil
+    @placement.save
     assert_difference('Placement.count', -1) do
       delete :destroy, id: @placement
     end

@@ -8,4 +8,5 @@ one:
 two:
   name: MyString
   description: MyText
-  publisher: one
+  publisher: two
+  epom_id: 2
