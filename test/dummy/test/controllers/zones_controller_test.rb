@@ -3,6 +3,7 @@ require 'test_helper'
 class ZonesControllerTest < ActionController::TestCase
   setup do
     @zone = zones(:one)
+    @zone.publisher.update(epom_id: 1)
   end
 
   test "should get index" do

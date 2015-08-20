@@ -3,6 +3,7 @@ require 'test_helper'
 class PlacementsControllerTest < ActionController::TestCase
   setup do
     @placement = placements(:one)
+    @placement.zone.update(epom_id: 1)
   end
 
   test "should get index" do

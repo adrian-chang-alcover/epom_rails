@@ -3,6 +3,8 @@ require 'test_helper'
 class BannersControllerTest < ActionController::TestCase
   setup do
     @banner = banners(:one)
+    @banner.campaign.advertiser.save
+    @banner.campaign.save
   end
 
   test "should get index" do

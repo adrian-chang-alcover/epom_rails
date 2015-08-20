@@ -1,6 +1,6 @@
 class ActiveRecord::Base 
 
-  def method_missing(method_name)
+  def method_missing(method_name, *args)
     fields = self.class.get_config[:fields]
 
     # shortcut for epom fields, instead of self.send(fields.key(epom_field))
@@ -13,8 +13,12 @@ class ActiveRecord::Base
       methods = method_name.to_s.split('.')
       target = self
       methods.each do |method|
-        target = target.send(method)
-      end
+        if method == methods.last
+          target = target.send(method, *args)
+        else
+          target = target.send(method)
+        end
+      end  
       return target
     else
       super
