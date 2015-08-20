@@ -11,7 +11,8 @@ class ActsAsPlacementTest < ActiveSupport::TestCase
 
 	test 'save an placement' do
 		unless EpomRails.config.offline
-			placement = placements(:one)	
+			placement = placements(:two)
+			placement.epom_id = nil
 
 	  	assert	placement.save
 	  	assert_instance_of Fixnum, placement.send(epom_field('id'))
@@ -33,7 +34,8 @@ class ActsAsPlacementTest < ActiveSupport::TestCase
 
 	test 'delete an placement' do
 		unless EpomRails.config.offline
-			placement = placements(:one)	  	
+			placement = placements(:two)
+			placement.epom_id = nil	  	
 
 	  	assert	placement.save
 	  	assert_instance_of Fixnum, placement.send(epom_field('id'))
@@ -45,7 +47,8 @@ class ActsAsPlacementTest < ActiveSupport::TestCase
 
 	test 'epom methods' do
 		unless EpomRails.config.offline
-			placement = placements(:one)	  	
+			placement = placements(:two)
+			placement.epom_id = nil	  	
 
 	  	assert	placement.save
 	  	assert_instance_of Fixnum, placement.send(epom_field('id'))

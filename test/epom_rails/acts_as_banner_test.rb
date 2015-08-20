@@ -11,8 +11,9 @@ class ActsAsBannerTest < ActiveSupport::TestCase
 
 	test 'save an banner' do
 		unless EpomRails.config.offline
-			banner = banners(:one)	  	
-
+			banner = banners(:two)	 
+			banner.epom_id = nil
+			
 	  	assert	banner.save
 	  	assert_instance_of Fixnum, banner.send(epom_field('id'))
 	  end
@@ -20,7 +21,9 @@ class ActsAsBannerTest < ActiveSupport::TestCase
 
 	test 'delete an banner' do
 		unless EpomRails.config.offline
-			banner = banners(:one)	  	
+			banner = banners(:two)
+			banner.epom_id = nil
+			banner.save
 
 	  	assert	banner.save
 	  	assert_instance_of Fixnum, banner.send(epom_field('id'))
@@ -32,13 +35,13 @@ class ActsAsBannerTest < ActiveSupport::TestCase
 
 	test 'epom methods' do
 		unless EpomRails.config.offline
-			banner = banners(:one)	  	
-
+			banner = banners(:two)	 
+			banner.epom_id = nil
 	  	assert	banner.save
 	  	assert_instance_of Fixnum, banner.send(epom_field('id'))
 
 			response = Banner.get_banner({:bannerId => banner.send(epom_field('id'))}, {})
-			assert_equal banner.campaign_id, response['campaignId']
+			assert_equal banner.campaign.epom_id, response['campaignId']
 			assert_equal banner.weight, response['weight']
 			assert_equal banner.url, response['url']
 			assert_equal banner.name, response['name']
