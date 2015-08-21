@@ -11,7 +11,8 @@ class ActsAsCampaignTest < ActiveSupport::TestCase
 
 	test 'save an campaign' do
 		unless EpomRails.config.offline
-			campaign = campaigns(:two)	  	
+			campaign = campaigns(:two)
+			campaign.epom_id = nil	  	
 
 	  	assert	campaign.save
 	  	assert_instance_of Fixnum, campaign.send(epom_field('id'))
@@ -20,7 +21,8 @@ class ActsAsCampaignTest < ActiveSupport::TestCase
 
 	test 'delete an campaign' do
 		unless EpomRails.config.offline
-			campaign = campaigns(:two)	  	
+			campaign = campaigns(:two)	 
+			campaign.epom_id = nil 	
 
 	  	assert	campaign.save
 	  	assert_instance_of Fixnum, campaign.send(epom_field('id'))
@@ -32,7 +34,8 @@ class ActsAsCampaignTest < ActiveSupport::TestCase
 
 	test 'epom methods' do
 		unless EpomRails.config.offline
-			campaign = campaigns(:two)	  	
+			campaign = campaigns(:two)
+			campaign.epom_id = nil	  	
 
 	  	assert	campaign.save
 	  	assert_instance_of Fixnum, campaign.send(epom_field('id'))

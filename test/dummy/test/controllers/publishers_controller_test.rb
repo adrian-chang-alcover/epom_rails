@@ -18,7 +18,7 @@ class PublishersControllerTest < ActionController::TestCase
 
   test "should create publisher" do
     assert_difference('Publisher.count') do
-      post :create, publisher: { category_id: @publisher.category_id, description: @publisher.description, email: @publisher.email, epom_id: @publisher.epom_id, name: @publisher.name, url: @publisher.url }
+      post :create, publisher: { category_id: @publisher.category_id, description: @publisher.description, email: @publisher.email, name: @publisher.name, url: @publisher.url }
     end
 
     assert_redirected_to publisher_path(assigns(:publisher))
@@ -35,7 +35,7 @@ class PublishersControllerTest < ActionController::TestCase
   end
 
   test "should update publisher" do
-    patch :update, id: @publisher, publisher: { category_id: @publisher.category_id, description: @publisher.description, email: @publisher.email, epom_id: @publisher.epom_id, name: @publisher.name, url: @publisher.url }
+    patch :update, id: @publisher, publisher: { category_id: @publisher.category_id, description: @publisher.description, email: @publisher.email, name: @publisher.name, url: @publisher.url }
     assert_redirected_to publisher_path(assigns(:publisher))
   end
 
