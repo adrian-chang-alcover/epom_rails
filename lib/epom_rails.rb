@@ -6,6 +6,7 @@ require 'epom_rails/acts_as_banner'
 require 'epom_rails/acts_as_site'
 require 'epom_rails/acts_as_zone'
 require 'epom_rails/acts_as_placement'
+require 'epom_rails/acts_as_analytic'
 
 require 'epom_rails/config'
 
