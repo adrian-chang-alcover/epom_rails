@@ -34,7 +34,7 @@ Epom.configure do |config|
 	config.proxy_user = ENV['proxy_user']
 	config.proxy_password = ENV['proxy_password']
 end
-byebug
+
 EpomRails.configure do |config|
   config.offline = false
 
