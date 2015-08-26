@@ -28,5 +28,6 @@ module EpomRails
 		return Epom::Site if EpomRails.config.site[:model] == self
 		return Epom::Zone if EpomRails.config.zone[:model] == self
 		return Epom::Placement if EpomRails.config.placement[:model] == self
+		return Epom::Analytic if EpomRails.config.analytic[:model] == self
 	end
 end
