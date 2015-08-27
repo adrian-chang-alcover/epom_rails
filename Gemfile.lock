@@ -1,12 +1,12 @@
 PATH
   remote: .
   specs:
-    epom_rails (1.3)
+    epom_rails (1.3.1)
       epom (= 0.10.5)
       rails (~> 4.2)
 
 GEM
-  remote: file:/media/adrian/DATA/Estudios/Web/Ruby/repo/
+  remote: https://rubygems.org/
   specs:
     actionmailer (4.2.3)
       actionpack (= 4.2.3)
