@@ -1,0 +1,83 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Analytics</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Hour</th>
+      <th>Advertiser</th>
+      <th>Advertiser</th>
+      <th>Campaign</th>
+      <th>Campaign</th>
+      <th>Banner</th>
+      <th>Banner</th>
+      <th>Site</th>
+      <th>Site</th>
+      <th>Zone</th>
+      <th>Zone</th>
+      <th>Placement</th>
+      <th>Placement</th>
+      <th>Channel</th>
+      <th>Country</th>
+      <th>Impressions</th>
+      <th>Clicks</th>
+      <th>Ctr</th>
+      <th>Conversions</th>
+      <th>I2c</th>
+      <th>Ccr</th>
+      <th>Net</th>
+      <th>Gross</th>
+      <th>Profit</th>
+      <th>Ecpm net</th>
+      <th>Ecpm gross</th>
+      <th>Ecpm profit</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @analytics.each do |analytic| %>
+      <tr>
+        <td><%= analytic.date %></td>
+        <td><%= analytic.hour %></td>
+        <td><%= analytic.advertiser %></td>
+        <td><%= analytic.advertiser_id %></td>
+        <td><%= analytic.campaign %></td>
+        <td><%= analytic.campaign_id %></td>
+        <td><%= analytic.banner %></td>
+        <td><%= analytic.banner_id %></td>
+        <td><%= analytic.site %></td>
+        <td><%= analytic.site_id %></td>
+        <td><%= analytic.zone %></td>
+        <td><%= analytic.zone_id %></td>
+        <td><%= analytic.placement %></td>
+        <td><%= analytic.placement_id %></td>
+        <td><%= analytic.channel %></td>
+        <td><%= analytic.country %></td>
+        <td><%= analytic.impressions %></td>
+        <td><%= analytic.clicks %></td>
+        <td><%= analytic.ctr %></td>
+        <td><%= analytic.conversions %></td>
+        <td><%= analytic.i2c %></td>
+        <td><%= analytic.ccr %></td>
+        <td><%= analytic.net %></td>
+        <td><%= analytic.gross %></td>
+        <td><%= analytic.profit %></td>
+        <td><%= analytic.ecpm_net %></td>
+        <td><%= analytic.ecpm_gross %></td>
+        <td><%= analytic.ecpm_profit %></td>
+        <td><%= analytic.status %></td>
+        <td><%= link_to 'Show', analytic %></td>
+        <td><%= link_to 'Edit', edit_analytic_path(analytic) %></td>
+        <td><%= link_to 'Destroy', analytic, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Analytic', new_analytic_path %>

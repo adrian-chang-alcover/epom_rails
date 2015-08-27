@@ -6,6 +6,7 @@ require 'epom_rails/acts_as_banner'
 require 'epom_rails/acts_as_site'
 require 'epom_rails/acts_as_zone'
 require 'epom_rails/acts_as_placement'
+require 'epom_rails/acts_as_analytic'
 
 require 'epom_rails/config'
 
@@ -27,5 +28,6 @@ module EpomRails
 		return Epom::Site if EpomRails.config.site[:model] == self
 		return Epom::Zone if EpomRails.config.zone[:model] == self
 		return Epom::Placement if EpomRails.config.placement[:model] == self
+		return Epom::Analytic if EpomRails.config.analytic[:model] == self
 	end
 end

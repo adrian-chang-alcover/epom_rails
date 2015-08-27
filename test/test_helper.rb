@@ -65,4 +65,7 @@ EpomRails.configure do |config|
   config.placement[:fields] = {epom_id: 'id', 'zone.epom_id' => 'zoneId', placement_type: 'type', name: 'name', ad_unit_id: 'adUnitId', size_height: 'size.height', size_width: 'size.width'}
   config.placement[:has_many] = [{:name => 'banners', :epom_element => 'Banner', :model => 'Banner'}]
   config.placement[:belongs_to] = [{:name => 'zone', :epom_element => 'Zone', :model => 'Zone'}]
+
+  config.analytic = {}
+  config.analytic[:fields] = {date: "Date", hour: "Hour", advertiser: "Advertiser", advertiser_id: "Advertiser ID", campaign: "Campaign", campaign_id: "Campaign ID", banner: "Banner", banner_id: "Banner ID", site: "Site", site_id: "Site ID", zone: "Zone", zone_id: "Zone ID", placement: "Placement", placement_id: "Placement ID", channel: "Channel", country: "Country", impressions: "Impressions", clicks: "Clicks", ctr: "CTR", conversions: "Conversions", i2c: "I2C", ccr: "CCR", net: "Net", gross: "Gross", profit: "Profit", ecpm_net: "eCPM Net", ecpm_gross: "eCPM Gross", ecpm_profit: "eCPM Profit", status: "Status"}
 end

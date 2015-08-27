@@ -1,0 +1,133 @@
+<%= form_for(@analytic) do |f| %>
+  <% if @analytic.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@analytic.errors.count, "error") %> prohibited this analytic from being saved:</h2>
+
+      <ul>
+      <% @analytic.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.date_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :hour %><br>
+    <%= f.time_select :hour %>
+  </div>
+  <div class="field">
+    <%= f.label :advertiser %><br>
+    <%= f.text_field :advertiser %>
+  </div>
+  <div class="field">
+    <%= f.label :advertiser_id %><br>
+    <%= f.number_field :advertiser_id %>
+  </div>
+  <div class="field">
+    <%= f.label :campaign %><br>
+    <%= f.text_field :campaign %>
+  </div>
+  <div class="field">
+    <%= f.label :campaign_id %><br>
+    <%= f.number_field :campaign_id %>
+  </div>
+  <div class="field">
+    <%= f.label :banner %><br>
+    <%= f.text_field :banner %>
+  </div>
+  <div class="field">
+    <%= f.label :banner_id %><br>
+    <%= f.number_field :banner_id %>
+  </div>
+  <div class="field">
+    <%= f.label :site %><br>
+    <%= f.text_field :site %>
+  </div>
+  <div class="field">
+    <%= f.label :site_id %><br>
+    <%= f.number_field :site_id %>
+  </div>
+  <div class="field">
+    <%= f.label :zone %><br>
+    <%= f.text_field :zone %>
+  </div>
+  <div class="field">
+    <%= f.label :zone_id %><br>
+    <%= f.number_field :zone_id %>
+  </div>
+  <div class="field">
+    <%= f.label :placement %><br>
+    <%= f.text_field :placement %>
+  </div>
+  <div class="field">
+    <%= f.label :placement_id %><br>
+    <%= f.number_field :placement_id %>
+  </div>
+  <div class="field">
+    <%= f.label :channel %><br>
+    <%= f.text_field :channel %>
+  </div>
+  <div class="field">
+    <%= f.label :country %><br>
+    <%= f.text_field :country %>
+  </div>
+  <div class="field">
+    <%= f.label :impressions %><br>
+    <%= f.number_field :impressions %>
+  </div>
+  <div class="field">
+    <%= f.label :clicks %><br>
+    <%= f.number_field :clicks %>
+  </div>
+  <div class="field">
+    <%= f.label :ctr %><br>
+    <%= f.text_field :ctr %>
+  </div>
+  <div class="field">
+    <%= f.label :conversions %><br>
+    <%= f.number_field :conversions %>
+  </div>
+  <div class="field">
+    <%= f.label :i2c %><br>
+    <%= f.text_field :i2c %>
+  </div>
+  <div class="field">
+    <%= f.label :ccr %><br>
+    <%= f.text_field :ccr %>
+  </div>
+  <div class="field">
+    <%= f.label :net %><br>
+    <%= f.number_field :net %>
+  </div>
+  <div class="field">
+    <%= f.label :gross %><br>
+    <%= f.number_field :gross %>
+  </div>
+  <div class="field">
+    <%= f.label :profit %><br>
+    <%= f.number_field :profit %>
+  </div>
+  <div class="field">
+    <%= f.label :ecpm_net %><br>
+    <%= f.number_field :ecpm_net %>
+  </div>
+  <div class="field">
+    <%= f.label :ecpm_gross %><br>
+    <%= f.number_field :ecpm_gross %>
+  </div>
+  <div class="field">
+    <%= f.label :ecpm_profit %><br>
+    <%= f.number_field :ecpm_profit %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.text_field :status %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
