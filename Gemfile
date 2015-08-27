@@ -1,4 +1,5 @@
-source 'https://rubygems.org'
+# source 'https://rubygems.org'
+source 'file:///media/adrian/DATA/Estudios/Web/Ruby/repo'
 
 # Declare your gem's dependencies in epom_rails.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
