@@ -1,0 +1,63 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2015-08-21
+  hour: 2015-08-21 00:11:45
+  advertiser: MyString
+  advertiser_id: 1
+  campaign: MyString
+  campaign_id: 1
+  banner: MyString
+  banner_id: 1
+  site: MyString
+  site_id: 1
+  zone: MyString
+  zone_id: 1
+  placement: MyString
+  placement_id: 1
+  channel: MyString
+  country: MyString
+  impressions: 1
+  clicks: 1
+  ctr: 1.5
+  conversions: 1
+  i2c: 1.5
+  ccr: 1.5
+  net: 1
+  gross: 1
+  profit: 1
+  ecpm_net: 1
+  ecpm_gross: 1
+  ecpm_profit: 1
+  status: MyString
+
+two:
+  date: 2015-08-21
+  hour: 2015-08-21 00:11:45
+  advertiser: MyString
+  advertiser_id: 1
+  campaign: MyString
+  campaign_id: 1
+  banner: MyString
+  banner_id: 1
+  site: MyString
+  site_id: 1
+  zone: MyString
+  zone_id: 1
+  placement: MyString
+  placement_id: 1
+  channel: MyString
+  country: MyString
+  impressions: 1
+  clicks: 1
+  ctr: 1.5
+  conversions: 1
+  i2c: 1.5
+  ccr: 1.5
+  net: 1
+  gross: 1
+  profit: 1
+  ecpm_net: 1
+  ecpm_gross: 1
+  ecpm_profit: 1
+  status: MyString
