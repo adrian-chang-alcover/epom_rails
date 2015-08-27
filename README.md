@@ -36,7 +36,7 @@ end
 
 Now, every time you save, update or delete an advertiser it is synchronized in Epom. The first time you save an advertiser the epom_id attribute (according to specified above) is setted with the advertiser id in Epom.
 
-You have the method <code>acts_as_campaign</code>, <code>acts_as_banner</code>, <code>acts_as_site</code>, <code>acts_as_zone</code> and <code>acts_as_placement</code> too.
+You have the method <code>acts_as_campaign</code>, <code>acts_as_banner</code>, <code>acts_as_site</code>, <code>acts_as_zone</code>, <code>acts_as_placement</code> and <code>acts_as_analytic</code> too.
 ```
 class Campaign < ActiveRecord::Base
 	acts_as_campaign fields: {epom_id: 'id', name: 'name', description: 'description', advertiser_id: 'advertiserId', weight: 'weight'}
@@ -81,6 +81,10 @@ url_params = {:advertiserId => 'advertiser_id'}
 body_params = {}
 Advertiser.get_campaigns_for_advertiser(url_params, body_params)
 # or Advertiser.get_campaigns_for_advertiser(url_params)
+```
+and
+```
+Analytic.analytic_from_epom({range: 'CURRENT_MONTH'})
 ```
 
 ## Contributing
