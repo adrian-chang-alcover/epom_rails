@@ -11,6 +11,6 @@ gemspec
 # your gem to rubygems.org.
 
 # To use a debugger
-gem 'byebug', group: :test
+gem 'byebug', group: [:test]
 
 gem "codeclimate-test-reporter", group: :test, require: nil
