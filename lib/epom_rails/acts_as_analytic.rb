@@ -18,13 +18,13 @@ class ActiveRecord::Base
           :groupBy => 'ADVERTISER,CAMPAIGN,BANNER,SITE,ZONE,PLACEMENT,CHANNEL,COUNTRY',
           :groupRange => 'DAY',
         }
-        analytics = JSON.parse(self.analytics(default.merge(params)))
+        analytics = JSON.parse(Epom::Analytic.analytics(default.merge(params)))
         fields = get_config[:fields]
         analytics.map do |analytic|
           data = {}
           fields.map {|key, value| data[key] = analytic[value]}
           data[:date] = Date.parse(data[:date]) if data[:date].is_a?(String)
-          Analytic.new(data)
+          self.new(data)
         end
       end
     end

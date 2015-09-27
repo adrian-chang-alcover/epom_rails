@@ -12,7 +12,6 @@ require 'epom_rails/config'
 
 module EpomRails
 	def method_missing(method_name, *args)
-		puts 'class method_missing'
 		if not EpomRails.config.offline and epom_class.respond_to?(method_name)
 			# this permits to use:
 			# Campaign.get_campaign({:campaignId => campaign.send(epom_field('id'))}, {})
