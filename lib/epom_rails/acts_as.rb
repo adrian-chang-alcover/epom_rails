@@ -1,6 +1,7 @@
 class ActiveRecord::Base 
 
   def method_missing(method_name, *args)
+    puts 'instance method_missing'
     fields = self.class.get_config[:fields]
 
     # shortcut for epom fields, instead of self.send(fields.key(epom_field))
