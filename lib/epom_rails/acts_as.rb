@@ -24,8 +24,6 @@ class ActiveRecord::Base
   def self.override_config(klass, params)
     config = get_config
     config[:fields] = params[:fields] if params[:fields]
-    config[:has_many] = params[:has_many] if params[:has_many]
-    config[:belongs_to] = params[:belongs_to] if params[:belongs_to]
   end
 
   def self.define_method_missing

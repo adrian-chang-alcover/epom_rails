@@ -36,7 +36,7 @@ Epom.configure do |config|
 end
 
 EpomRails.configure do |config|
-  config.offline = false
+  config.offline = true
 
   config.advertiser = {}
   config.advertiser[:fields] = {epom_id: 'id', name: 'name', contact_name: 'contactName', contact_email: 'contactEmail', description: 'description'}
