@@ -1,36 +1,12 @@
 class ActiveRecord::Base 
 
-  def method_missing(method_name, *args)
-    fields = self.class.get_config[:fields]
-
-    # shortcut for epom fields, instead of self.send(fields.key(epom_field))
-    # use self.send(epom_field)
-    if fields.values.include?(method_name.to_s)
-      real_method = fields.key(method_name.to_s)
-      return self.send(real_method)
-    # when self.send('advertiser.epom_id')
-    elsif method_name.to_s.include?('.')
-      methods = method_name.to_s.split('.')
-      target = self
-      methods.each do |method|
-        if method == methods.last
-          target = target.send(method, *args)
-        else
-          target = target.send(method)
-        end
-      end  
-      return target
-    else
-      super
-    end
-  end 
-
   private
 
   def self.acts_as(klass, params)
     extend EpomRails
     
     override_config(klass, params)
+    define_method_missing
     define_before_save(klass)
     define_before_destroy(klass)
   end
@@ -48,8 +24,35 @@ class ActiveRecord::Base
   def self.override_config(klass, params)
     config = get_config
     config[:fields] = params[:fields] if params[:fields]
-    config[:has_many] = params[:has_many] if params[:has_many]
-    config[:belongs_to] = params[:belongs_to] if params[:belongs_to]
+  end
+
+  def self.define_method_missing
+    self.class_eval do
+      def method_missing(method_name, *args)
+        fields = self.class.get_config[:fields]
+
+        # shortcut for epom fields, instead of self.send(fields.key(epom_field))
+        # use self.send(epom_field)
+        if fields.values.include?(method_name.to_s)
+          real_method = fields.key(method_name.to_s)
+          return self.send(real_method)
+        # when self.send('advertiser.epom_id')
+        elsif method_name.to_s.include?('.')
+          methods = method_name.to_s.split('.')
+          target = self
+          methods.each do |method|
+            if method == methods.last
+              target = target.send(method, *args)
+            else
+              target = target.send(method)
+            end
+          end  
+          return target
+        else
+          super
+        end
+      end 
+    end
   end
 
   def self.define_before_save(klass)

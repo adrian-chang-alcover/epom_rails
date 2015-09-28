@@ -67,14 +67,6 @@ class Placement < ActiveRecord::Base
 end
 ```
 
-You can specify associations between models, for example, Publisher model acts as Site, and Zone model belongs to Publisher.
-```
-class Zone < ActiveRecord::Base
-	belongs_to :publisher
-	acts_as_zone belongs_to: [{:name => 'publisher', :epom_element => 'Site', :model => 'Publisher'}]
-end
-```
-
 Also, you can call the others Epom methods.
 ```
 url_params = {:advertiserId => 'advertiser_id'}
