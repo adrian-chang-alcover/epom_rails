@@ -23,12 +23,10 @@ class ActsAsBannerTest < ActiveSupport::TestCase
 		unless EpomRails.config.offline
 			banner = banners(:two)
 			banner.epom_id = nil
-			banner.save
 
 	  	assert	banner.save
 	  	assert_instance_of Fixnum, banner.send(epom_field('id'))
 
-	  	epom_id = banner.send(epom_field('id'))
 	  	assert banner.destroy
 	  end
 	end
