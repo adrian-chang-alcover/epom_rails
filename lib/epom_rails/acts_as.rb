@@ -60,7 +60,6 @@ class ActiveRecord::Base
   	fields = get_config[:fields]
 
   	before_save do 
-      puts "before_save for #{self.inspect}"
       unless EpomRails.config.offline
         method = if self.send fields.key('id') then "update_#{klass_name.downcase}" else "create_#{klass_name.downcase}" end
         
@@ -99,7 +98,6 @@ class ActiveRecord::Base
     klass_name = get_epom_class_name
     fields = get_config[:fields]
     before_destroy do
-      puts "before_destroy for #{self.inspect}"
       unless EpomRails.config.offline
         if self.send fields.key('id')          
           epom_response = klass.send "delete_#{klass_name.downcase}", {"#{klass_name.downcase}Id" => self.send(fields.key('id'))}, {}
