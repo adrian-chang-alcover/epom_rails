@@ -12,6 +12,5 @@ gemspec
 
 # To use a debugger
 gem 'byebug', group: [:test]
-gem epom, path: '../epom'
 
 gem "codeclimate-test-reporter", group: :test, require: nil
