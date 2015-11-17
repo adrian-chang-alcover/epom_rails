@@ -57,4 +57,15 @@ class ActsAsPlacementTest < ActiveSupport::TestCase
 	  	assert_instance_of Array, epom_response
 	  end
 	end
+
+	test 'key method' do
+		unless EpomRails.config.offline
+			placement = placements(:two)
+			placement.epom_id = nil
+
+	  		assert placement.save
+	  		epom_key = placement.epom_key
+	  		assert_equal epom_key, placement.instance_variable_get('@epom_key')
+	  	end
+	end
 end
