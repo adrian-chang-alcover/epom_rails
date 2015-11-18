@@ -11,11 +11,13 @@ class ActiveRecord::Base
 	def self.define_key_method
     self.class_eval do
       def epom_key
-        unless @epom_key
-          response = Epom::Placement.get_placement_summary({placementIds: self.epom_id})
-          @epom_key = response[0]['key']
-        end
-		  	@epom_key
+        unless EpomRails.config.offline 
+          unless @epom_key
+            response = Epom::Placement.get_placement_summary({placementIds: self.epom_id})
+            @epom_key = response[0]['key']
+          end
+          @epom_key
+        end		  	
       end
     end
 	end

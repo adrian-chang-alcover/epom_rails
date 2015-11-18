@@ -65,6 +65,7 @@ class ActsAsPlacementTest < ActiveSupport::TestCase
 
 	  		assert placement.save
 	  		epom_key = placement.epom_key
+	  		epom_key = placement.epom_key
 	  		assert_equal epom_key, placement.instance_variable_get('@epom_key')
 	  	end
 	end
